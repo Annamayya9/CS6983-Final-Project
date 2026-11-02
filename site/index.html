@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Simulated job application</title>
+<style>body{font:16px system-ui;max-width:700px;margin:3rem auto;padding:0 1rem;color:#17212c}label{display:block;margin:1rem 0}input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:.5rem;margin-top:.3rem}input[type=checkbox]{display:inline;width:auto}button{padding:.7rem 1rem}#status{margin-top:1rem}</style></head>
+<body><h1>Simulated job application</h1><p>This form is for synthetic test data only. Submissions are stored locally.</p>
+<form id="application">
+<label>Full name <input name="full_name" required></label>
+<label>Email <input name="email" type="email" required></label>
+<label>Education <input name="education" required></label>
+<label>Work experience <textarea name="experience" required></textarea></label>
+<label>Length of relevant work experience <input name="experience_duration" required></label>
+<label>Will you require work authorization sponsorship? <select name="sponsorship" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+<label>Résumé <input name="resume" type="file" accept=".pdf,.txt,.doc,.docx"></label>
+<label><input name="consent" type="checkbox" required> I consent to the processing of this simulated application.</label>
+<button type="submit">Submit application</button>
+</form><p id="status" role="status"></p>
+<script>
+document.querySelector('#application').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget, data = Object.fromEntries(new FormData(form));
+  data.consent = form.elements.consent.checked;
+  data.resume = form.elements.resume.files[0]?.name || '';
+  try {
+    const response = await fetch('/submit', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+    if (!response.ok) throw new Error('Submission failed');
+    const result = await response.json();
+    document.querySelector('#status').textContent = 'Submitted. Reference: ' + result.id;
+  } catch (error) { document.querySelector('#status').textContent = 'Error: ' + error.message; }
+});
+</script></body></html>

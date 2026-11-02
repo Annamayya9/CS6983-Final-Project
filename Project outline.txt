@@ -1,0 +1,152 @@
+For your AI Agents and Human Control course, I would recommend treating the project as a baseline agent + human-control layer + comparative evaluation.
+
+The key is that you don't necessarily need to improve the underlying LLM. You can improve the system around it: how the agent plans, uses tools, handles permissions, communicates decisions, and responds to human intervention.
+1. What can we use as a baseline?
+There are four practical options, regardless of which use case you eventually choose.
+Baseline approach	What it means	When to choose it
+Existing open-source agent	Use an agent framework or application with an existing implementation	Best when you want to modify execution logic and tools
+Existing commercial agent	Use a product such as a browser-based AI agent	Best when you're investigating a real product's shortcomings
+Replicated product baseline	Implement a simplified version of an existing agent's core workflow	Best when a commercial product doesn't expose its internal architecture or API
+Minimal functional agent	Build a basic planner-and-tool-calling agent without additional control mechanisms	Best when you need a reproducible and easily modifiable experimental baseline
+
+Some potential starting points include LangGraph, Microsoft AutoGen, and OpenHands.
+
+My preference would be an open-source agent or a minimal agent that replicates an existing product's behavior. Both give you control over the code, reproducible experiments, and an easier path to comparing identical workflows.
+
+A commercial product can still serve as the behavioral reference, but if it doesn't expose internal hooks, you may not be able to wrap its execution directly.
+2. What improvements can we make beyond prompt engineering?
+Here are eight engineering directions that apply to many different agent use cases.
+
+1. Tool-level permission enforcement
+
+Intercept the agent's tool calls and allow, block, or require approval based on explicit permissions. Unlike prompting an agent to ask first, this safeguard is enforced by the execution environment.
+
+Example: A job-application agent can fill a form but cannot invoke the final submit action without an approval token.
+
+
+
+
+2. Risk-adaptive approval checkpoints
+
+Add a risk-classification component that determines which actions need human review, instead of requesting approval for everything.
+
+Example: Editing a draft is low risk; sharing sensitive information or submitting a final application is high risk.
+
+
+
+
+3. Independent output verification
+
+Introduce a verifier that examines the agent's proposed actions or outputs before execution. Verification can use deterministic rules, schemas, source comparisons, or a separate model.
+
+Example: Check that job-application answers are consistent with the candidate's verified résumé and personal information.
+
+
+
+
+4. Preview-and-diff interfaces
+
+Show the human precisely what the agent intends to change, rather than merely asking, "Do you approve?"
+
+Example: Highlight résumé sentences that were added, removed, or rewritten, alongside the original statements.
+
+
+
+
+5. Reversible execution and rollback
+
+Introduce staging, snapshots, transaction-like execution, or undo mechanisms before committing changes.
+
+Example: A file-management agent stages proposed moves and deletions so the user can inspect them before committing.
+
+
+
+
+6. Scope and constraint tracking
+
+Maintain a structured record of the user's permissions, objectives, and constraints. Check every consequential action against that record.
+
+Example: An agent instructed to apply only for remote roles cannot silently broaden the search to on-site positions.
+
+
+
+
+7. Interruptibility and human takeover
+
+Implement a state machine that allows the user to pause, inspect, correct, resume, or cancel execution. A genuine pause must prevent further consequential tool calls, not merely stop displaying progress.
+
+Example: A user can stop a browser agent midway through a workflow, correct a field, and resume without restarting.
+
+
+
+
+8. Action provenance and auditability
+
+Record what the agent did, why an action was proposed, which information it relied on, and what the human authorized.
+
+Example: A user can trace each application answer back to its source and see which actions were explicitly approved.
+
+
+
+These are actual architectural and interface changes, not merely additions to a system prompt. Some may use an LLM internally, but the control mechanism is implemented outside the agent's instructions.
+3. What would a modified architecture look like?
+User request + explicit constraints
+Goals, allowed actions, protected information
+
+Baseline AI agent
+Plans steps and proposes tool calls
+
+New human-control layer
+Permission checks
+
+
+Risk assessment
+
+
+Output verification
+
+
+Approval / correction
+
+
+
+
+
+Tool execution
+Only permitted, verified, or explicitly approved actions
+
+Outcome + audit trail
+Task result, control decisions, observed violations
+
+An important implementation detail: every relevant tool call must pass through the control layer. Otherwise, the agent could bypass your intervention through another tool or workflow.
+4. How do we demonstrate that our changes actually work?
+The strongest design is to run the same agent, model, tools, and test cases, with the control mechanisms switched off and then on.
+
+For example:
+Metric	Baseline	Modified system
+Unauthorized actions	Count violations	Aim to reduce
+Task completion	Measure success rate	Preserve success
+Incorrect outputs	Measure error rate	Aim to reduce
+Unnecessary approval requests	Count interruptions	Minimize
+Human effort	Time, clicks, corrections	Keep manageable
+Intervention success	Measure stopped/corrected actions	Aim to increase
+
+You could also conduct an ablation study: enable permissions alone, verification alone, then both together. This helps establish which intervention contributes to the improvement.
+5. What does that mean for your job-application-agent idea?
+It's actually a useful candidate because the control requirements are concrete.
+Baseline failure	Engineering improvement
+Agent fills fields incorrectly	Structured candidate profile + field-level verification
+Agent submits without permission	Tool-level submission gate requiring explicit authorization
+Agent invents or exaggerates résumé claims	Claim-to-source verification + change-diff review
+Agent applies for unsuitable jobs	Persistent job-selection constraints + eligibility checks
+Agent makes decisions without explaining them	Action history + source-linked justifications
+
+For this use case, you could implement a browser agent using Playwright and an LLM, operating against a simulated job-application website. The baseline would use the same browser tools without the added safeguards.
+
+That would let you reliably reproduce submission errors and permission violations without accidentally submitting real applications.
+
+I would not recommend implementing all five improvements for your course. Instead, choose one underlying control problem—such as the agent committing consequential actions without informed authorization—and develop two complementary mechanisms, such as a submission gate and a meaningful preview interface.
+
+My main recommendation: Choose the use case based on which control failure you can reliably demonstrate, rather than which agent framework seems most interesting. Then build the smallest architectural intervention that addresses that failure, and evaluate whether it improves control without making the agent unnecessarily difficult to use.
+
+That's a much stronger project than simply adding a human-in-the-loop prompt to an existing agent.

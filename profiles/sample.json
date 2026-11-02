@@ -1,0 +1,10 @@
+{
+  "full_name": "Alex Example",
+  "email": "alex@example.test",
+  "education": "BS in Computer Science, Example University, 2024",
+  "experience": "Software engineering intern for 6 months at Example Corp.",
+  "experience_duration": "6 months",
+  "sponsorship": "no",
+  "consent": "I explicitly approve accepting the simulated consent.",
+  "resume_path": "profiles/sample_resume.txt"
+}
