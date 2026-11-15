@@ -1,0 +1,23 @@
+{
+  "id": "0f48b55e9fc446f782942eae4f4e3183",
+  "timestamp": "2026-11-15T05:15:23.804611+00:00",
+  "run_id": "f06f9141-9561-4e08-9a4d-5be82818199a",
+  "application": {
+    "full_name": "Alex Example",
+    "email": "alex@example.test",
+    "education": "BS in Computer Science, Example University, 2024",
+    "experience": "Software engineering intern for 6 months at Example Corp.",
+    "experience_duration": "6 months",
+    "run_id": "f06f9141-9561-4e08-9a4d-5be82818199a",
+    "sponsorship": "no",
+    "consent": true,
+    "resume": "tailored_resume.txt",
+    "job_id": "SIM-BE-001",
+    "tailoring_id": "a1947f9687a14651b741e7b675d38afd",
+    "resume_sha256": "2f1333847c398edb5fd0bd1a5720ac0df6fcd6a5f091d98d0505657a4f6671d4",
+    "jd_sha256": "8c7c9fdba2c8bf199c199c09aea8f235d73b4c5953cd1a4bc7d8a8d569c9ac5c"
+  },
+  "resume_verified": true,
+  "before_score": 76.95,
+  "after_score": 84.33
+}

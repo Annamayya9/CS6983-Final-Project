@@ -1,0 +1,96 @@
+{
+  "url": "http://127.0.0.1:56728/",
+  "run_id": "1e792dbf-1ce1-4551-861e-f126c1833a72",
+  "text": "LOCAL EXPERIMENT / SYNTHETIC DATA\nMake your experience easier to find.\n\nTailor a resume to this position, inspect the evidence and changes, then complete a simulated application.\n\n1. Position and job description\n\nBackend Software Engineering Intern \u00b7 Northstar Software (fictional)\n\nPosition ID\nJob description\n2. Upload and tailor\nResume\n\nUTF-8 TXT, text PDF, or DOCX, up to 5 MiB. Output is editable plain text. Every nonblank source line is retained; only section/bullet order and explicit technology spellings can change.\n\nAnalyze & tailor resume\n\nComparison ready. Review the text, changes and remaining gaps.\n\n3. Compare and review\nBefore\n76.95\n88.24% requirement coverage\nAfter\n84.33\n88.24% requirement coverage\nChange\n+7.38\nrelevance points\n\nScore = 0.8 \u00d7 weighted requirement coverage + 0.2 \u00d7 weighted first-evidence prominence. Prominence per match = 1 \u2212 nonblank-line rank / max(1, nonblank-line count \u2212 1). Missing requirements receive zero. JD lines containing required/must/essential have weight 2; others weight 1. The same aliases, weights, and requirements are frozen before tailoring.\n\nThis is a lexical diagnostic, not an ATS score or hiring probability. Qualifications do not improve just because evidence moves earlier. Years, seniority and degree requirements are not scored.\n\nUnmet requirements: Kubernetes, AWS\n\nRequirement evidence\nOriginal resume\nAlex Example\nalex@example.test | Fictional candidate for the CS6983 simulation\n\nINTERESTS\n- Organize a weekly campus board game evening.\n- Maintain a collection of hiking route notes.\n- Photograph local architecture on weekends.\n- Help plan the student film society calendar.\n\nEDUCATION\nBS in Computer Science, Example University, 2024\nCoursework: algorithms, databases and software engineering.\n\nEXPERIENCE\nSoftware Engineering Intern | Example Corp | January\u2013June 2024 (6 months)\n- Updated internal onboarding notes for the team.\n- Built Python REST endpoints for an internal inventory tool using Postgres and SQL.\n- Added unit tests with pytest for input validation.\n- Collaborated with two interns and reviewed changes using Git.\n\nPROJECTS\nCampus Inventory Demo | Academic project | 2024\n- Wrote a short installation guide for classmates.\n- Packaged the Python service in Docker for local demonstrations.\n- Built a small JS page to display inventory counts.\n\nTECHNICAL SKILLS\nPython, SQL, Postgres, Git, Docker, JS, pytest\n\nTailored resume\nAlex Example\nalex@example.test | Fictional candidate for the CS6983 simulation\n\nEXPERIENCE\nSoftware Engineering Intern | Example Corp | January\u2013June 2024 (6 months)\n- Built Python REST API endpoints for an internal inventory tool using PostgreSQL and SQL.\n- Collaborated with two interns and reviewed changes using Git.\n- Added unit tests with pytest for input validation.\n- Updated internal onboarding notes for the team.\n\nTECHNICAL SKILLS\nPython, SQL, PostgreSQL, Git, Docker, JS, pytest\n\nPROJECTS\nCampus Inventory Demo | Academic project | 2024\n- Packaged the Python service in Docker for local demonstrations.\n- Wrote a short installation guide for classmates.\n- Built a small JS page to display inventory counts.\n\nEDUCATION\nBS in Computer Science, Example University, 2024\nCoursework: algorithms, databases and software engineering.\n\nINTERESTS\n- Organize a weekly campus board game evening.\n- Maintain a collection of hiking route notes.\n- Photograph local architecture on weekends.\n- Help plan the student film society calendar.\n\n\n2 lines use normalized technology spellings; 21 lines moved with their sections or bullet groups. All source claims are retained.\n\nInspect every changed line\n\nOpen full comparison and diff \u00b7 Download tailored resume\n\nUse reviewed tailored resume\n\nReviewed tailored_resume.txt selected for this application.\n\n4. Simulated application\nFull name\nEmail\nEducation\nWork experience\nLength of relevant work experience\nWill you require work authorization sponsorship?\nChoose an answer\nYes\nNo\n I consent to the processing of this simulated application.\nSubmit simulated application\n\nSubmitted. Reference: 81f03b79df6c460daa6a83aba77bc273",
+  "fields": [
+    {
+      "name": "job_id",
+      "selector": "#job-id",
+      "type": "text",
+      "value": "SIM-BE-001",
+      "checked": false
+    },
+    {
+      "name": "job_description",
+      "selector": "#jd",
+      "type": "textarea",
+      "value": "Backend Software Engineering Intern \u2014 Northstar Software (fictional)\nBuild and maintain small backend services with a mentor.\nRequired: Python, SQL, PostgreSQL, REST APIs and Git.\nRequired: automated testing and collaboration on engineering projects.\nPreferred: Docker, Kubernetes and AWS.\nUse only supported candidate experience; this simulated position does not imply the candidate has every listed skill.",
+      "checked": null
+    },
+    {
+      "name": "resume",
+      "selector": "#resume",
+      "type": "file",
+      "value": [
+        "tailored_resume.txt"
+      ],
+      "checked": false
+    },
+    {
+      "name": "full_name",
+      "selector": "[name=\"full_name\"]",
+      "type": "text",
+      "value": "Alex Example",
+      "checked": false
+    },
+    {
+      "name": "email",
+      "selector": "[name=\"email\"]",
+      "type": "email",
+      "value": "alex@example.test",
+      "checked": false
+    },
+    {
+      "name": "education",
+      "selector": "[name=\"education\"]",
+      "type": "text",
+      "value": "BS in Computer Science, Example University, 2024",
+      "checked": false
+    },
+    {
+      "name": "experience",
+      "selector": "[name=\"experience\"]",
+      "type": "textarea",
+      "value": "Software engineering intern for 6 months at Example Corp.",
+      "checked": null
+    },
+    {
+      "name": "experience_duration",
+      "selector": "[name=\"experience_duration\"]",
+      "type": "text",
+      "value": "6 months",
+      "checked": false
+    },
+    {
+      "name": "sponsorship",
+      "selector": "[name=\"sponsorship\"]",
+      "type": "select-one",
+      "value": "no",
+      "checked": null
+    },
+    {
+      "name": "consent",
+      "selector": "[name=\"consent\"]",
+      "type": "checkbox",
+      "value": "on",
+      "checked": true
+    }
+  ],
+  "buttons": [
+    {
+      "selector": "#tailor",
+      "text": "Analyze & tailor resume",
+      "disabled": true
+    },
+    {
+      "selector": "#use-tailored",
+      "text": "Use reviewed tailored resume",
+      "disabled": false
+    },
+    {
+      "selector": "#submit",
+      "text": "Submit simulated application",
+      "disabled": false
+    }
+  ]
+}

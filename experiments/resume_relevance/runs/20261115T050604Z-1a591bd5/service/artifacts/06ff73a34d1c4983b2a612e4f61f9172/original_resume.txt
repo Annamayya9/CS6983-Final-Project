@@ -1,0 +1,28 @@
+Alex Example
+alex@example.test | Fictional candidate for the CS6983 simulation
+
+INTERESTS
+- Organize a weekly campus board game evening.
+- Maintain a collection of hiking route notes.
+- Photograph local architecture on weekends.
+- Help plan the student film society calendar.
+
+EDUCATION
+BS in Computer Science, Example University, 2024
+Coursework: algorithms, databases and software engineering.
+
+EXPERIENCE
+Software Engineering Intern | Example Corp | January–June 2024 (6 months)
+- Updated internal onboarding notes for the team.
+- Built Python REST endpoints for an internal inventory tool using Postgres and SQL.
+- Added unit tests with pytest for input validation.
+- Collaborated with two interns and reviewed changes using Git.
+
+PROJECTS
+Campus Inventory Demo | Academic project | 2024
+- Wrote a short installation guide for classmates.
+- Packaged the Python service in Docker for local demonstrations.
+- Built a small JS page to display inventory counts.
+
+TECHNICAL SKILLS
+Python, SQL, Postgres, Git, Docker, JS, pytest
