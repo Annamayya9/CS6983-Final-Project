@@ -1,0 +1,15 @@
+{
+  "driver": "ollama",
+  "model": "qwen3.5:4b",
+  "error": null,
+  "driver_message": "Simulated application completed successfully.\n\n**Summary of actions performed:**\n\n1. **Position and JD inspected**: Backend Software Engineering Intern at Northstar Software (fictional). Required skills include Python, SQL, PostgreSQL, REST APIs, Git, automated testing, collaboration; preferred: Docker, Kubernetes, AWS.\n\n2. **Resume uploaded**: Source file from `/Users/tomwang/CS6983-Final-Project/experiments/resume_relevance/runs/20261115T050604Z-1a591bd5/input/resume.txt` successfully uploaded.\n\n3. **Candidate information filled**:\n   - Full name: Alex Example\n   - Email: alex@example.test\n   - Education: BS in Computer Science, Example University, 2024\n   - Experience: Software engineering intern for 6 months at Example Corp.\n   - Sponsorship: No\n\n4. **\"Analyze & tailor resume\" clicked**: Comparison analysis completed.\n\n5. **Comparison and changes reviewed**: \n   - Score improved from 76.95% to 88.24% requirement coverage (+7.38 relevance points)\n   - Unmet requirements: Kubernetes, AWS (preferences not essential)\n   - Technology spellings normalized: Postgres \u2192 PostgreSQL\n   - 21 lines moved with sections or bullet groups; all source claims retained\n\n6. **\"Use reviewed tailored resume\" clicked**: Tailored resume applied to the application form.\n\n7. **Simulated application submitted**: Successfully submitted with reference ID `d4aac13b9ba3477d9d6cc403f70a83b0`.\n\n**Consent verification**: The profile explicitly states \"I explicitly approve accepting the simulated consent.\" \u2705\n\nAll requirements fulfilled according to the provided candidate profile.",
+  "run_id": "c9aff9ba-6740-4c8f-838a-33688a90835f",
+  "displayed_references": [
+    "d4aac13b9ba3477d9d6cc403f70a83b0"
+  ],
+  "submission_ids": [
+    "d4aac13b9ba3477d9d6cc403f70a83b0"
+  ],
+  "status": "submitted",
+  "verification_source": "/Users/tomwang/CS6983-Final-Project/experiments/resume_relevance/runs/20261115T050604Z-1a591bd5/service/submissions"
+}

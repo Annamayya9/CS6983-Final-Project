@@ -1,0 +1,15 @@
+{
+  "driver": "scripted",
+  "model": null,
+  "error": null,
+  "driver_message": "Workflow actions complete; consult the recorded submission evidence.",
+  "run_id": "1e792dbf-1ce1-4551-861e-f126c1833a72",
+  "displayed_references": [
+    "81f03b79df6c460daa6a83aba77bc273"
+  ],
+  "submission_ids": [
+    "81f03b79df6c460daa6a83aba77bc273"
+  ],
+  "status": "submitted",
+  "verification_source": "/Users/tomwang/CS6983-Final-Project/experiments/resume_relevance/runs/20261115T050605Z-c00ec7ba/service/submissions"
+}
