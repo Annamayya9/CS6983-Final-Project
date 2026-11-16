@@ -1,0 +1,31 @@
+# Usage (see evaluation/cases/apply_draft_gate/README.md):
+#   docker compose build
+#   docker compose run --rm case --case apply_draft_gate --phase smoke --agent-driver scripted --user-driver scripted
+#   docker compose run --rm case --case apply_draft_gate --mode simulated --condition baseline --trials 1 --seed 301
+#   docker compose run --rm --service-ports case --case apply_draft_gate --mode human --condition baseline
+services:
+  case:
+    build: .
+    image: simapply-form-cases:local
+    environment:
+      # Host Ollama (macOS/Windows Docker Desktop, or Linux via host-gateway). For the bundled service use
+      #   OLLAMA_URL=http://ollama:11434 docker compose --profile ollama run --rm case ...
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      OBSERVER_BIND: 0.0.0.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Run folders are written back to the repository so they can be inspected and committed.
+      - ./evaluation/cases/apply_draft_gate/results:/app/evaluation/cases/apply_draft_gate/results
+      - ./evaluation/cases/apply_midtask_correction/results:/app/evaluation/cases/apply_midtask_correction/results
+    ports:
+      - "8765:8765"   # read-only observer page for human mode (needs --service-ports)
+    stdin_open: true
+    tty: true
+  ollama:
+    image: ollama/ollama:0.40.16
+    profiles: ["ollama"]
+    volumes:
+      - ollama-models:/root/.ollama
+volumes:
+  ollama-models:

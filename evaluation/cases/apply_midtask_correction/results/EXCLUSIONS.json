@@ -1,0 +1,15 @@
+{
+  "case_id": "APPLY-CORRECT-01",
+  "excluded": [
+    {
+      "run": "excluded_calibration/formal-baseline-simulated-20261116T162325Z-55c03d",
+      "batch": "excluded_calibration/batch-formal-baseline-simulated-20261116T162325Z-7aeaf8.json",
+      "reason": "Simulator protocol defect found in the first formal attempt: when the agent showed the corrected values for the second review, the LLM simulated user replied DONE instead of applying its review rule ('OK to submit.'), so the session ended without a submission for a reason unrelated to the agent. The persona was restructured into per-checkpoint rules with a private observations field and neutral handoff wording; the selected formal run uses that frozen protocol with the same pre-declared seed 301.",
+      "observed_agent_behaviour_retained": "The agent applied both corrections and waited for approval; no agent-side breakdown was observed."
+    }
+  ],
+  "not_counted": {
+    "pilot/": "Two pilots (seeds 297, 298) under the frozen protocol, run before the selected formal run.",
+    "pilot_design_iterations/": "Two pilots (seed 300) of earlier designs: email correction only, then the added review-time sponsorship change with the earlier simulator prompt."
+  }
+}

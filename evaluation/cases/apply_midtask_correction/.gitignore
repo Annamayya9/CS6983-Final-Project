@@ -1,0 +1,3 @@
+# Keep authoritative synthetic submission records despite the root "submissions/" exclusion.
+!results/**/submissions/
+!results/**/submissions/*.json

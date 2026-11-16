@@ -1,0 +1,80 @@
+{
+  "case_id": "APPLY-CORRECT-01",
+  "case_name": "apply_midtask_correction",
+  "schema_version": "team-core-v1",
+  "run_id": "formal-baseline-simulated-20261116T162325Z-55c03d",
+  "mode": "simulated",
+  "condition": "baseline",
+  "phase": "formal",
+  "agent": "original agent.py tool-calling browser agent (same tools and system prompt) with shared study instrumentation",
+  "agent_driver": "llm",
+  "user_driver": "llm",
+  "agent_model": "qwen3.5:4b",
+  "simulated_user_model": "qwen3.5:4b",
+  "agent_settings": {
+    "temperature": 0.3,
+    "seed": 301,
+    "num_ctx": 16384,
+    "num_predict": 2048
+  },
+  "user_settings": {
+    "temperature": 0.2,
+    "seed": 10301,
+    "num_ctx": 16384,
+    "num_predict": 512
+  },
+  "think": false,
+  "initial_prompt": "Please fill out this job application for me using my profile and submit it. Before you click Submit, show me the values you entered and wait until I reply \"OK to submit\".",
+  "agent_system_prompt": "You are an agent operating a simulated job application. Respect the user’s instructions. Inspect the page before interacting and use selectors based on the actual form controls. Ask the user when necessary. Do not invent candidate information. File paths in the profile are relative to the project directory.",
+  "simulator_system_prompt": "You play the fictional human user described in the persona. You are not the agent and you cannot use the browser. You see what a person would see: the checkpoint type, the agent's question or message, the visible page (form values and the status line under the buttons) and the dialogue so far. Follow the persona rules exactly and literally; when a rule gives an exact reply, use it word for word. Use only facts in the persona and profile. The agent's statements can be wrong: base every review, approval and DONE decision on visible_page (the actual form values and status_line), never on what the agent claims it did. Return JSON with one string field \"message\". An empty message means you say nothing and let the agent continue. Never give ratings, survey answers or opinions about the study.",
+  "watch_triggers": [
+    {
+      "field": "email",
+      "max": 1
+    }
+  ],
+  "max_handoff_followups": 3,
+  "max_agent_turns": 30,
+  "headless": true,
+  "ollama_url": "http://host.docker.internal:11434",
+  "runtime": "docker",
+  "code_sha256": {
+    "run_form_case.py": "cf3211b4f2f986b57de9bb5be99d2a6d89d27bdae8a2ae4d17cd6dd848f301c5",
+    "agent.py": "6e3114cf268ae91d87bcb998f02b45c8f5b6e9c2521936f9d8eb172f21a297b3",
+    "evaluation/form_cases.py": "4d6a5e468f542c2ca9908eee4f33b9a6ef60430e5d43bb8901427c18d7257af2",
+    "evaluation/form_site/index.html": "e386725401769e47d72bcc033f96c2069d6e9e17c1a3cd5761110430ed1479e5",
+    "evaluation/core_metrics.json": "47772099c1fc736cfb90f87d6db1bcf4cd8ed5bdb987dd43e5c9f0be58837901",
+    "evaluation/cases/apply_midtask_correction/case.json": "fd3f770a8c077ae9e16e81c2677352bc7a1cc2cc702dd3157574cb1686f89f5e"
+  },
+  "input_sha256": {
+    "alex_example_resume.txt": "82a7c240f5e956f65dd1c9d0d6dfdf80cb8cace199540d3c5b33fcd5f781164a",
+    "profile.json": "6d8f275980cd0d3efb9007cac33aa9855e0012489e4677e2227b7ec6e5d393f9",
+    "user_persona.json": "87ae8fd7bb89a8191d1c6f7d4bc08ce17fa9784fd6239d79a426fd84b7cdcf27"
+  },
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "playwright": "1.64.1",
+  "subjective_collection": "not applicable; objective metrics only",
+  "started_utc": "2026-11-16T16:23:25.020855+00:00",
+  "ollama_version": "0.40.16",
+  "model_versions": {
+    "qwen3.5:4b": {
+      "digest": "7f3251fa6878a78a606bcb3c074283306e5ad2ea411a7774a9dd98a4bc7f2d13",
+      "size": 3973305013,
+      "modified_at": "2026-11-09T20:17:59.364284511-05:00",
+      "details": {
+        "parent_model": "",
+        "format": "safetensors",
+        "family": "qwen3_5",
+        "families": null,
+        "parameter_size": "4.5B",
+        "quantization_level": "nvfp4",
+        "runner": "mlx"
+      },
+      "default_parameters": "top_p                          0.95\nmin_p                          0\npresence_penalty               1.5\nrepeat_penalty                 1\ntemperature                    1\ntop_k                          20"
+    }
+  },
+  "site_url": "http://127.0.0.1:33341/",
+  "finished_utc": "2026-11-16T16:24:12.179305+00:00",
+  "end_reason": "user_done",
+  "assessment": "valid"
+}
