@@ -1,0 +1,7 @@
+{
+  "schema_version": "team-core-v1",
+  "respondent_type": "human",
+  "run_id": "REPLACE_AFTER_HUMAN_SESSION",
+  "answers": {"engagement": null, "cognitive_load": null, "perceived_controllability": null},
+  "status": "template_only_not_collected"
+}

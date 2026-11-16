@@ -153,77 +153,20 @@ def score_resume(text, requirements):
             'requirements': evidence}
 
 
-def tailor_text(source, requirements):
-    """Reorder whole sections and contiguous bullets; never cross employer boundaries.
-
-    Rewrites are restricted to canonical spellings of existing technology names.
-    No free-form generation, new claims, dropped lines, or duplicate lines.
-    """
-    original = [{'source_line': i, 'before': line, 'after': line}
-                for i, line in enumerate(source.splitlines(), 1) if line.strip()]
-    labels = {r['label'] for r in requirements}
-    for row in original:
-        if NEGATIVE.search(row['before']):
-            continue
-        for label, regex, replacement in REWRITES:
-            if label in labels:
-                row['after'] = re.sub(regex, replacement or (lambda m: 'REST API endpoint' + ('s' if m.group().lower().endswith('s') else '')),
-                                      row['after'], flags=re.I)
-    def relevance(rows):
-        return sum(r['weight'] for r in requirements
-                   if any(positive_matches(row['after'], r['aliases']) for row in rows))
-    preamble, sections, current = [], [], None
-    for row in original:
-        heading = row['after'].strip().strip('#: ').lower()
-        if heading in HEADINGS:
-            current = [row]
-            sections.append(current)
-        elif current is None:
-            preamble.append(row)
-        else:
-            current.append(row)
-    for section in sections:
-        start = 1
-        while start < len(section):
-            if not re.match(r'^\s*[-*•]\s+', section[start]['after']):
-                start += 1
-                continue
-            end = start + 1
-            while end < len(section) and re.match(r'^\s*[-*•]\s+', section[end]['after']):
-                end += 1
-            section[start:end] = sorted(section[start:end], key=lambda row: -relevance([row]))
-            start = end
-    # Give equally relevant sections a conventional resume order.
-    tie_order = {'summary': 0, 'objective': 1, 'experience': 2, 'work experience': 2,
-                 'professional experience': 2, 'technical skills': 3, 'skills': 3,
-                 'projects': 4, 'selected projects': 4, 'education': 5,
-                 'certifications': 6, 'awards': 7, 'volunteer experience': 8,
-                 'additional experience': 8, 'activities': 9, 'interests': 10}
-    sections.sort(key=lambda section: (-relevance(section[1:]),
-                                      tie_order.get(section[0]['after'].strip().strip('#: ').lower(), 11)))
-    ordered = preamble + [row for section in sections for row in section]
-    if Counter(row['source_line'] for row in original) != Counter(row['source_line'] for row in ordered):
-        raise AssertionError('Source-line preservation failed.')
-    # Blank lines are presentation only. Score uses nonblank-line positions.
-    output, provenance = [], []
-    heading_ids = {section[0]['source_line'] for section in sections}
-    original_rank = {row['source_line']: i for i, row in enumerate(original)}
-    for rank, row in enumerate(ordered):
-        if row['source_line'] in heading_ids and output:
-            output.append('')
-        output.append(row['after'])
-        provenance.append({**row, 'output_line': len(output),
-                           'rewritten': row['before'] != row['after'],
-                           'moved': original_rank[row['source_line']] != rank,
-                           'reason': 'Canonical technology spelling and/or JD relevance ordering; source facts retained.'})
-    return '\n'.join(output) + '\n', provenance
+def tailor_text(source, requirements, education_first=False, preserve_wording=False):
+    from resume_claims import tailor_blocks
+    return tailor_blocks(source, requirements, education_first, preserve_wording)
 
 
-def build_comparison(source, jd, job_id='custom', filename='resume.txt'):
+def build_comparison(source, jd, job_id='custom', filename='resume.txt', preferences=None):
+    preferences = {} if preferences is None else preferences
+    allowed = {'education_first', 'preserve_wording'}
+    if not isinstance(preferences, dict) or any(k not in allowed or type(v) is not bool for k, v in preferences.items()):
+        raise ValueError('Resume preferences must be named booleans: education_first and preserve_wording.')
     requirements = requirements_from_jd(jd)
-    tailored, provenance = tailor_text(source, requirements)
+    tailored, provenance = tailor_text(source, requirements, **preferences)
     before, after = score_resume(source, requirements), score_resume(tailored, requirements)
-    return {'version': VERSION, 'job_id': job_id, 'source_filename': filename,
+    report = {'version': 'source-block-preferences-v4', 'job_id': job_id, 'source_filename': filename,
             'source_sha256': sha256(source.encode()), 'jd_sha256': sha256(jd.encode()),
             'tailored_sha256': sha256(tailored.encode()), 'job_description': jd,
             'source_text': source, 'tailored_text': tailored,
@@ -233,6 +176,15 @@ def build_comparison(source, jd, job_id='custom', filename='resume.txt'):
             'unmet_requirements': [r['label'] for r in after['requirements'] if not r['matched']],
             'method': 'Score = 0.8 × weighted requirement coverage + 0.2 × weighted first-evidence prominence. Prominence per match = 1 − nonblank-line rank / max(1, nonblank-line count − 1). Missing requirements receive zero. JD lines containing required/must/essential have weight 2; others weight 1. The same aliases, weights, and requirements are frozen before tailoring.',
             'limitations': 'Lexical diagnostic, not an ATS score or hiring probability. Curated vocabulary only; no inference of years, seniority, degree equivalence or semantic entailment. Negated/uncertain clauses receive no credit. Tailoring only reorders existing sections/bullets and normalizes explicit technology spellings; it cannot fill qualification gaps. Extracted PDF/DOCX layout is not preserved. Review the text and provenance before use.'}
+
+    report['preferences'] = {name: preferences.get(name, False) for name in sorted(allowed)}
+    report['score_interpretation'] = (f"Presentation/relevance index {before['score']:.2f} → {after['score']:.2f}; "
+        f"qualification coverage {before['coverage_percent']:.2f}% → {after['coverage_percent']:.2f}%. "
+        'Ordering can change prominence, not candidate qualifications. User constraints take priority over maximizing this index.')
+    report['validation'] = {'source_rows_preserved': True, 'claim_blocks_preserved': True,
+                            'verbatim_wording': all(not row['rewritten'] for row in provenance)}
+    report['limitations'] += ' Indented continuations move with whole claim blocks; ambiguous unindented boundaries freeze the preceding bullet group. Identity and employer metadata are not rewritten. This is not semantic verification of arbitrary resume layouts.'
+    return report
 
 
 def comparison_html(report):

@@ -1,0 +1,10 @@
+{
+  "unit_server_tests_passed": 22,
+  "unit_command": "python -m unittest discover -s tests -v",
+  "technical_browser_checks_passed": 9,
+  "browser_command": "python tests/check_resume_study_ui.py --output-dir PATH",
+  "human_sessions_run": 0,
+  "subjective_answers_collected": 0,
+  "ollama_processes_closed": true,
+  "model_files_deleted_or_uninstalled": false
+}

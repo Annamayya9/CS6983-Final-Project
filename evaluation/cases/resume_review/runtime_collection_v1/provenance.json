@@ -1,0 +1,7 @@
+{
+  "purpose": "Exact shared collection adapter used for the selected five formal baseline trials and the first v2 smoke run. Subsequent changes add only the proposed-condition continuation controller.",
+  "files": {
+    "run_resume_study.py": "a6f9fe20afd57223f72053a65b303c7b14bc6be5f3d3b5780dd08e9f8bb73691",
+    "resume_case.py": "fc6953a69d0a24ea541100dcbba9034445f1aa6f2489d32c122d527955e02b85"
+  }
+}

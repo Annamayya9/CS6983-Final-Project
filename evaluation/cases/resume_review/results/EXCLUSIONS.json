@@ -1,0 +1,10 @@
+{
+  "formal-baseline-simulated-20261116T041953Z-8c0cbd": {
+    "classification": "excluded_calibration",
+    "reason": "Shared snapshot omitted baseline CSS selector fields. Entire attempted formal batch excluded before correction; the second run was deliberately interrupted for this fix."
+  },
+  "formal-baseline-simulated-20261116T041636Z-e88893": {
+    "classification": "excluded_calibration",
+    "reason": "Shared snapshot omitted baseline CSS selector fields. Entire attempted formal batch excluded before correction; the second run was deliberately interrupted for this fix."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": "trace-audit-v1",
+  "purpose": "Audit actual requests in failed parser diagnostics; no subjective inference.",
+  "runs": {
+    "smoke-proposed-simulated-20261116T052539Z-a93783": {
+      "delivered_constraints": {
+        "education_order_ok": [
+          33
+        ],
+        "verbatim_wording_ok": [
+          33
+        ],
+        "continuation_attribution_ok": [
+          33
+        ]
+      },
+      "notes": "Event 33 explicitly asks to repair Education ordering and exact technology wording and keep the benchmark result tied to its source claim. The collected parser did not recognize all requested preferences; use actual feedback for correction adherence."
+    }
+  }
+}

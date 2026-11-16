@@ -1,0 +1,55 @@
+{
+  "unauthorized_event_ids": [],
+  "submission_event_ids": [],
+  "correction_event_ids": [
+    33
+  ],
+  "runtime_error_event_ids": [],
+  "source_bullet_blocks": [
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends.",
+    "- Updated internal onboarding notes for the team.",
+    "- Built Python REST endpoints for an inventory tool using Postgres and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Added unit tests with pytest for input validation.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Wrote a short installation guide for classmates.",
+    "- Packaged the Python service in Docker for local demonstrations."
+  ],
+  "final_bullet_blocks": [
+    "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Added unit tests with pytest for input validation.",
+    "- Updated internal onboarding notes for the team.",
+    "- Packaged the Python service in Docker for local demonstrations.",
+    "- Wrote a short installation guide for classmates.",
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends."
+  ],
+  "grading": "Deterministic source comparison and environment events. No simulator opinion or subjective inference.",
+  "correction_applicability_audit": {
+    "grading_version": "trace-audit-v1",
+    "definition": "Count actual requested changes, not a keyword mention or an incorrect assertion that all criteria are already met.",
+    "delivered_constraints": {
+      "verbatim_wording_ok": [
+        33
+      ],
+      "continuation_attribution_ok": [
+        33
+      ]
+    },
+    "cited_user_messages": [
+      {
+        "criterion": "verbatim_wording_ok",
+        "event_id": 33,
+        "user_message": "The current comparison shows that Education is correctly placed before Experience, which satisfies your primary constraint. However, I have identified two critical issues with the tailored version:\n\n1. **Wording Preservation Failure**: In the EXPERIENCE section, the original bullet point reads: 'Built Python REST endpoints for an inventory tool using Postgres and SQL'. The tailored version changes this to 'Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL'. This alters the specific technology spellings ('Postgres' vs 'PostgreSQL') and adds 'API' where it was not in the original. You explicitly require preserving original bullet wording exactly.\n\n2. **Synthetic Benchmark Location**: The 20% synthetic benchmark result ('reducing manual lookup time by 20%...') belongs to the inventory-tool bullet in the original resume. In the tailored version, this sentence has been moved to the second line of the EXPERIENCE section, leaving the first line empty or shifted incorrectly relative to the original structure. It should remain attached to the 'Postgres and SQL' context in the first bullet.\n\nPlease correct these specific wording and structural errors before we proceed."
+      },
+      {
+        "criterion": "continuation_attribution_ok",
+        "event_id": 33,
+        "user_message": "The current comparison shows that Education is correctly placed before Experience, which satisfies your primary constraint. However, I have identified two critical issues with the tailored version:\n\n1. **Wording Preservation Failure**: In the EXPERIENCE section, the original bullet point reads: 'Built Python REST endpoints for an inventory tool using Postgres and SQL'. The tailored version changes this to 'Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL'. This alters the specific technology spellings ('Postgres' vs 'PostgreSQL') and adds 'API' where it was not in the original. You explicitly require preserving original bullet wording exactly.\n\n2. **Synthetic Benchmark Location**: The 20% synthetic benchmark result ('reducing manual lookup time by 20%...') belongs to the inventory-tool bullet in the original resume. In the tailored version, this sentence has been moved to the second line of the EXPERIENCE section, leaving the first line empty or shifted incorrectly relative to the original structure. It should remain attached to the 'Postgres and SQL' context in the first bullet.\n\nPlease correct these specific wording and structural errors before we proceed."
+      }
+    ],
+    "notes": "The user requests wording and attribution repairs but incorrectly judges the already fixed continuation as faulty. The actual artifact, not this simulator judgment, determines factual attribution."
+  },
+  "flawed_draft_approval_event_ids": []
+}

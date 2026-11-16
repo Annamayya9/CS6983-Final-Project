@@ -1,0 +1,47 @@
+--- original_resume.txt
++++ tailored_resume.txt
+@@ -1,26 +1,26 @@
+ Alex Example
+ alex@example.test | Fictional candidate for the CS6983 simulation
+ 
+-INTERESTS
+-- Organize the campus board game calendar.
+-- Photograph local architecture on weekends.
++EXPERIENCE
++Software Engineering Intern | Example Corp | January–June 2024 (6 months)
++- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,
++  reducing manual lookup time by 20% in a synthetic benchmark.
++- Collaborated with two interns and reviewed changes using Git.
++- Added unit tests with pytest for input validation.
++- Updated internal onboarding notes for the team.
++
++TECHNICAL SKILLS
++Python, SQL, PostgreSQL, Git, Docker, pytest
++
++PROJECTS
++Campus Inventory Demo | Academic project | 2024
++- Packaged the Python service in Docker for local demonstrations.
++- Wrote a short installation guide for classmates.
+ 
+ EDUCATION
+ BS in Computer Science, Example University, 2024
+ Coursework: algorithms, databases and software engineering.
+ 
+-EXPERIENCE
+-Software Engineering Intern | Example Corp | January–June 2024 (6 months)
+-- Updated internal onboarding notes for the team.
+-- Built Python REST endpoints for an inventory tool using Postgres and SQL,
+-  reducing manual lookup time by 20% in a synthetic benchmark.
+-- Added unit tests with pytest for input validation.
+-- Collaborated with two interns and reviewed changes using Git.
+-
+-PROJECTS
+-Campus Inventory Demo | Academic project | 2024
+-- Wrote a short installation guide for classmates.
+-- Packaged the Python service in Docker for local demonstrations.
+-
+-TECHNICAL SKILLS
+-Python, SQL, Postgres, Git, Docker, pytest
++INTERESTS
++- Organize the campus board game calendar.
++- Photograph local architecture on weekends.

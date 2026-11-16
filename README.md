@@ -46,3 +46,17 @@ python resume_server.py
 ```
 
 Open `http://127.0.0.1:8001/`. To run the synthetic end-to-end browser experiment, use `python run_resume_experiment.py`. See [experiment inputs and results](experiments/resume_relevance/README.md) and [scoring limitations](RESUME_WORKFLOW.md#relevance-metric).
+
+## Two-mode evaluation case
+
+[RESUME-REVIEW-01](evaluation/cases/resume_review/README.md) adds a resettable whole-workflow task, a separate LLM simulated user, a human-user mode using the same text channel, shared core metrics, five new baseline trials, and human survey/interview probes. See the [protocol](evaluation/cases/resume_review/PROTOCOL.md) and [recorded results and proposed fixes](evaluation/cases/resume_review/RESULTS.md). The proposed condition preserves wrapped claim blocks, supports explicit wording/order preferences, and scopes approval to the current resume version. The original baseline remains available.
+
+## Review-executor update and self-service testing
+
+Start with the [step-by-step test guide](TEST_CASE_GUIDE.md). The new production engine moves complete claim blocks, preserves wording on request, and exposes section-order preferences. The proposed study condition adds an audited deterministic executor so supported review feedback changes the actual browser controls and regenerated file, with approval bound to the visible artifact and browser session. This is a hybrid intervention around the LLM planner.
+
+```sh
+python run_resume_study.py --mode simulated --condition proposed --phase smoke --agent-driver scripted --user-driver scripted --output-root runs/my-first-case
+```
+
+This first check needs no Ollama. Historical results remain dated snapshots; see the [v4 update report in Chinese](UPDATE_REPORT_ZH.md) for new validation, including failed diagnostic runs, and the guide for LLM and human modes. Close Ollama processes after model runs; keep the installed models.

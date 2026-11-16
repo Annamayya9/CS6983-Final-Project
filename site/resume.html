@@ -13,10 +13,13 @@
 <section aria-labelledby="resume-heading"><h2 id="resume-heading">2. Upload and tailor</h2>
 <label>Resume <input id="resume" name="resume" type="file" accept=".txt,.pdf,.docx" required></label>
 <p class="notice">UTF-8 TXT, text PDF, or DOCX, up to 5 MiB. Output is editable plain text. Every nonblank source line is retained; only section/bullet order and explicit technology spellings can change.</p>
-<button id="tailor" type="button" disabled>Analyze &amp; tailor resume</button><p id="workflow-status" role="status" aria-live="polite">Loading position…</p>
+<fieldset><legend>Resume preferences</legend>
+<label><input id="pref-education" name="education_first" type="checkbox"> Keep Education before Experience</label>
+<label><input id="pref-wording" name="preserve_wording" type="checkbox"> Preserve original bullet and continuation wording exactly</label>
+</fieldset><button id="tailor" type="button" disabled>Analyze &amp; tailor resume</button><p id="workflow-status" role="status" aria-live="polite">Loading position…</p>
 </section>
-<section id="comparison" hidden aria-labelledby="comparison-heading"><h2 id="comparison-heading">3. Compare and review</h2>
-<div class="scores"><div class="score">Before<strong id="before-score"></strong><span id="before-coverage"></span></div><div class="score">After<strong id="after-score"></strong><span id="after-coverage"></span></div><div class="score">Change<strong id="delta"></strong><span>relevance points</span></div></div>
+<section id="comparison" hidden aria-labelledby="comparison-heading"><h2 id="comparison-heading">3. Compare and review</h2><p><strong>Presentation index:</strong> ordering affects the score; unchanged coverage means unchanged qualifications. Review your constraints before optimizing the score.</p>
+<div class="scores"><div class="score">Before<strong id="before-score"></strong><span id="before-coverage"></span></div><div class="score">After<strong id="after-score"></strong><span id="after-coverage"></span></div><div class="score">Change<strong id="delta"></strong><span>presentation-index points</span></div></div>
 <p id="method" class="notice"></p><p class="notice">This is a lexical diagnostic, not an ATS score or hiring probability. Qualifications do not improve just because evidence moves earlier. Years, seniority and degree requirements are not scored.</p>
 <p><strong>Unmet requirements:</strong> <span id="gaps"></span></p>
 <details><summary>Requirement evidence</summary><table><thead><tr><th>Requirement</th><th>Before</th><th>After</th></tr></thead><tbody id="evidence"></tbody></table></details>
@@ -50,6 +53,8 @@ function invalidate(){
 $('#resume').addEventListener('change', invalidate);
 $('#jd').addEventListener('input', invalidate);
 $('#job-id').addEventListener('input', invalidate);
+$('#pref-education').addEventListener('change', invalidate);
+$('#pref-wording').addEventListener('change', invalidate);
 async function base64(file){
   const bytes = new Uint8Array(await file.arrayBuffer());
   let binary = '';
@@ -70,7 +75,7 @@ $('#tailor').addEventListener('click', async () => {
   $('#tailor').disabled = true; text('#workflow-status','Analyzing source evidence and preparing comparison…');
   try{
     if(file.size > 5*1024*1024) throw new Error('Upload a resume no larger than 5 MiB.');
-    const response = await post('/api/tailor',{filename:file.name, content_base64:await base64(file),job_id:jobId,job_description:jd});
+    const response = await post('/api/tailor',{filename:file.name, content_base64:await base64(file),job_id:jobId,job_description:jd,preferences:{education_first:$('#pref-education').checked,preserve_wording:$('#pref-wording').checked}});
     if(epoch !== generation) return;
     result = response; accepted = false; $('#submit').disabled = true;
     const r = result.report;
@@ -79,7 +84,7 @@ $('#tailor').addEventListener('click', async () => {
     text('#before-coverage',r.before.coverage_percent.toFixed(2)+'% requirement coverage');
     text('#after-coverage',r.after.coverage_percent.toFixed(2)+'% requirement coverage');
     text('#delta',(r.delta>=0?'+':'')+r.delta.toFixed(2)); text('#method',r.method);
-    text('#before-text',r.source_text); text('#after-text',r.tailored_text);
+    text('#method',(r.score_interpretation||'')+' '+r.method); text('#before-text',r.source_text); text('#after-text',r.tailored_text);
     text('#gaps',r.unmet_requirements.join(', ') || 'None in the extracted vocabulary');
     $('#changes').replaceChildren();
     for(const c of r.changes){const li=document.createElement('li'); li.textContent='Source line '+c.source_line+' → output line '+c.output_line+': '+(c.rewritten?'“'+c.before+'” → “'+c.after+'”':'Moved “'+c.before+'”')+'. '+c.reason; $('#changes').append(li);}

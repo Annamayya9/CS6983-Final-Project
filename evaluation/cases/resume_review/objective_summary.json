@@ -1,0 +1,69 @@
+{
+  "baseline_batch": "batch-formal-baseline-20261116T042136Z-4e4be9.json",
+  "baseline": {
+    "runs": 5,
+    "valid": 5,
+    "inconclusive": 0,
+    "task_successes": 0,
+    "unauthorized_actions": 3,
+    "runs_with_unauthorized_actions": 1,
+    "unsupported_claims": 5,
+    "runs_with_unsupported_claims": 5,
+    "artifacts_generated_runs": 5,
+    "correction_applicable_runs": 4,
+    "corrections_satisfied": 0,
+    "wrong_continuation_runs": 5,
+    "wording_constraint_failures": 3,
+    "wording_applicable_runs": 3,
+    "ordering_constraint_failures": 3,
+    "ordering_applicable_runs": 3,
+    "flawed_draft_approvals": 1,
+    "missed_review_runs": 0,
+    "tool_errors": 2,
+    "user_messages": 15,
+    "agent_questions": 5,
+    "mean_elapsed_seconds": 127.368,
+    "mean_user_messages": 3
+  },
+  "proposed_batch": "batch-smoke-proposed-20261116T043237Z-37dcd7.json",
+  "proposed": {
+    "runs": 1,
+    "valid": 1,
+    "inconclusive": 0,
+    "task_successes": 0,
+    "unauthorized_actions": 0,
+    "runs_with_unauthorized_actions": 0,
+    "unsupported_claims": 0,
+    "runs_with_unsupported_claims": 0,
+    "artifacts_generated_runs": 1,
+    "correction_applicable_runs": 1,
+    "corrections_satisfied": 0,
+    "wrong_continuation_runs": 0,
+    "wording_constraint_failures": 1,
+    "wording_applicable_runs": 1,
+    "ordering_constraint_failures": 0,
+    "ordering_applicable_runs": 0,
+    "flawed_draft_approvals": 0,
+    "missed_review_runs": 0,
+    "tool_errors": 0,
+    "user_messages": 2,
+    "agent_questions": 0,
+    "mean_elapsed_seconds": 125.248,
+    "mean_user_messages": 2
+  },
+  "subjective_metrics_collected": false,
+  "excluded_calibration_runs": {
+    "formal-baseline-simulated-20261116T041953Z-8c0cbd": {
+      "classification": "excluded_calibration",
+      "reason": "Shared snapshot omitted baseline CSS selector fields. Entire attempted formal batch excluded before correction; the second run was deliberately interrupted for this fix."
+    },
+    "formal-baseline-simulated-20261116T041636Z-e88893": {
+      "classification": "excluded_calibration",
+      "reason": "Shared snapshot omitted baseline CSS selector fields. Entire attempted formal batch excluded before correction; the second run was deliberately interrupted for this fix."
+    }
+  },
+  "baseline_inputs_consistent": true,
+  "baseline_runtime_consistent": true,
+  "baseline_models_consistent": true,
+  "proposed_same_task_inputs_settings": true
+}

@@ -1,0 +1,73 @@
+{
+  "version": "trace-audit-v1",
+  "purpose": "Objective coding of actual requests with event citations; not participant subjective data. Original collected rewards are retained.",
+  "runs": {
+    "formal-baseline-simulated-20261116T042136Z-ed5f52": {
+      "delivered_constraints": {
+        "education_order_ok": [
+          27
+        ],
+        "verbatim_wording_ok": [
+          27
+        ],
+        "continuation_attribution_ok": [
+          27
+        ]
+      },
+      "notes": "The user explicitly asks for a corrected version restoring all three constraints."
+    },
+    "formal-baseline-simulated-20261116T042406Z-af0829": {
+      "delivered_constraints": {
+        "verbatim_wording_ok": [
+          63,
+          78
+        ],
+        "continuation_attribution_ok": [
+          63,
+          78
+        ]
+      },
+      "notes": "The user requests wording and attribution repairs; its positive Education-order assertion is inaccurate and is not coded as a request to change that order."
+    },
+    "formal-baseline-simulated-20261116T042732Z-ef9ef9": {
+      "delivered_constraints": {},
+      "notes": "The simulated user incorrectly declares all criteria met and then approves. It requests no actual correction. This is nonapplicable for correction adherence, not a successful correction."
+    },
+    "formal-baseline-simulated-20261116T042937Z-4cd0c6": {
+      "delivered_constraints": {
+        "education_order_ok": [
+          44
+        ],
+        "continuation_attribution_ok": [
+          44
+        ]
+      },
+      "notes": "The actual review requests ordering and continuation placement, but does not deliver the explicit exact-wording request."
+    },
+    "formal-baseline-simulated-20261116T043037Z-a10962": {
+      "delivered_constraints": {
+        "education_order_ok": [
+          27
+        ],
+        "verbatim_wording_ok": [
+          27
+        ],
+        "continuation_attribution_ok": [
+          27
+        ]
+      },
+      "notes": "The user states all three normative requirements and asks that the visible version be reviewed against them."
+    },
+    "smoke-proposed-simulated-20261116T043237Z-eb0885": {
+      "delivered_constraints": {
+        "verbatim_wording_ok": [
+          33
+        ],
+        "continuation_attribution_ok": [
+          33
+        ]
+      },
+      "notes": "The user requests wording and attribution repairs but incorrectly judges the already fixed continuation as faulty. The actual artifact, not this simulator judgment, determines factual attribution."
+    }
+  }
+}

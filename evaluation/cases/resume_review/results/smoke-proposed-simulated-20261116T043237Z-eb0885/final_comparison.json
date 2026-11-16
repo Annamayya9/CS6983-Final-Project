@@ -1,0 +1,708 @@
+{
+  "version": "source-block-preferences-v2",
+  "job_id": "SIM-BE-REVIEW-001",
+  "source_filename": "resume.txt",
+  "source_sha256": "11a07cfdcd37868b0be90083c4afd2b55de83c3ee9a407a11926e58d51bce8ff",
+  "jd_sha256": "ff610badc727852da72532083ad49be5238069de27850fad46982b379eeef3b3",
+  "tailored_sha256": "bf3ea4edaead9a61fc14907289528e527c2a41a5ebb4b54f605948142e5d3ba8",
+  "job_description": "Backend Software Engineering Intern \u2014 Northstar Software (fictional)\nBuild and maintain small backend services with a mentor.\nRequired: Python, SQL, PostgreSQL, REST APIs and Git.\nRequired: automated testing and collaboration on engineering projects.\nPreferred: Docker, Kubernetes and AWS.\nOnly supported candidate facts may appear in this synthetic application.",
+  "source_text": "Alex Example\nalex@example.test | Fictional candidate for the CS6983 simulation\n\nINTERESTS\n- Organize the campus board game calendar.\n- Photograph local architecture on weekends.\n\nEDUCATION\nBS in Computer Science, Example University, 2024\nCoursework: algorithms, databases and software engineering.\n\nEXPERIENCE\nSoftware Engineering Intern | Example Corp | January\u2013June 2024 (6 months)\n- Updated internal onboarding notes for the team.\n- Built Python REST endpoints for an inventory tool using Postgres and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.\n- Added unit tests with pytest for input validation.\n- Collaborated with two interns and reviewed changes using Git.\n\nPROJECTS\nCampus Inventory Demo | Academic project | 2024\n- Wrote a short installation guide for classmates.\n- Packaged the Python service in Docker for local demonstrations.\n\nTECHNICAL SKILLS\nPython, SQL, Postgres, Git, Docker, pytest\n",
+  "tailored_text": "Alex Example\nalex@example.test | Fictional candidate for the CS6983 simulation\n\nEXPERIENCE\nSoftware Engineering Intern | Example Corp | January\u2013June 2024 (6 months)\n- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.\n- Collaborated with two interns and reviewed changes using Git.\n- Added unit tests with pytest for input validation.\n- Updated internal onboarding notes for the team.\n\nTECHNICAL SKILLS\nPython, SQL, PostgreSQL, Git, Docker, pytest\n\nPROJECTS\nCampus Inventory Demo | Academic project | 2024\n- Packaged the Python service in Docker for local demonstrations.\n- Wrote a short installation guide for classmates.\n\nEDUCATION\nBS in Computer Science, Example University, 2024\nCoursework: algorithms, databases and software engineering.\n\nINTERESTS\n- Organize the campus board game calendar.\n- Photograph local architecture on weekends.\n",
+  "before": {
+    "score": 77.18,
+    "coverage_percent": 88.24,
+    "prominence_percent": 32.94,
+    "matched_count": 8,
+    "requirement_count": 10,
+    "requirements": [
+      {
+        "label": "Python",
+        "aliases": [
+          "python"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST endpoints for an inventory tool using Postgres and SQL,",
+        "line_number": 15,
+        "matched_spellings": [
+          "Python"
+        ],
+        "placement_credit": 0.45
+      },
+      {
+        "label": "SQL",
+        "aliases": [
+          "sql",
+          "structured query language"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST endpoints for an inventory tool using Postgres and SQL,",
+        "line_number": 15,
+        "matched_spellings": [
+          "SQL"
+        ],
+        "placement_credit": 0.45
+      },
+      {
+        "label": "PostgreSQL",
+        "aliases": [
+          "postgresql",
+          "postgres"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST endpoints for an inventory tool using Postgres and SQL,",
+        "line_number": 15,
+        "matched_spellings": [
+          "Postgres"
+        ],
+        "placement_credit": 0.45
+      },
+      {
+        "label": "REST API",
+        "aliases": [
+          "rest api",
+          "rest apis",
+          "rest endpoint",
+          "rest endpoints",
+          "restful api",
+          "restful apis"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST endpoints for an inventory tool using Postgres and SQL,",
+        "line_number": 15,
+        "matched_spellings": [
+          "REST endpoints"
+        ],
+        "placement_credit": 0.45
+      },
+      {
+        "label": "Git",
+        "aliases": [
+          "git"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Collaborated with two interns and reviewed changes using Git.",
+        "line_number": 18,
+        "matched_spellings": [
+          "Git"
+        ],
+        "placement_credit": 0.3
+      },
+      {
+        "label": "Docker",
+        "aliases": [
+          "docker"
+        ],
+        "weight": 1,
+        "matched": true,
+        "evidence_line": "- Packaged the Python service in Docker for local demonstrations.",
+        "line_number": 23,
+        "matched_spellings": [
+          "Docker"
+        ],
+        "placement_credit": 0.1
+      },
+      {
+        "label": "Kubernetes",
+        "aliases": [
+          "kubernetes",
+          "k8s"
+        ],
+        "weight": 1,
+        "matched": false,
+        "evidence_line": null,
+        "line_number": null,
+        "matched_spellings": [],
+        "placement_credit": 0
+      },
+      {
+        "label": "AWS",
+        "aliases": [
+          "aws",
+          "amazon web services"
+        ],
+        "weight": 1,
+        "matched": false,
+        "evidence_line": null,
+        "line_number": null,
+        "matched_spellings": [],
+        "placement_credit": 0
+      },
+      {
+        "label": "automated testing",
+        "aliases": [
+          "automated testing",
+          "unit testing",
+          "unit tests",
+          "pytest"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Added unit tests with pytest for input validation.",
+        "line_number": 17,
+        "matched_spellings": [
+          "pytest",
+          "unit tests"
+        ],
+        "placement_credit": 0.35
+      },
+      {
+        "label": "collaboration",
+        "aliases": [
+          "collaboration",
+          "collaborated",
+          "collaborate"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Collaborated with two interns and reviewed changes using Git.",
+        "line_number": 18,
+        "matched_spellings": [
+          "Collaborated"
+        ],
+        "placement_credit": 0.3
+      }
+    ]
+  },
+  "after": {
+    "score": 83.53,
+    "coverage_percent": 88.24,
+    "prominence_percent": 64.71,
+    "matched_count": 8,
+    "requirement_count": 10,
+    "requirements": [
+      {
+        "label": "Python",
+        "aliases": [
+          "python"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+        "line_number": 6,
+        "matched_spellings": [
+          "Python"
+        ],
+        "placement_credit": 0.8
+      },
+      {
+        "label": "SQL",
+        "aliases": [
+          "sql",
+          "structured query language"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+        "line_number": 6,
+        "matched_spellings": [
+          "SQL"
+        ],
+        "placement_credit": 0.8
+      },
+      {
+        "label": "PostgreSQL",
+        "aliases": [
+          "postgresql",
+          "postgres"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+        "line_number": 6,
+        "matched_spellings": [
+          "PostgreSQL"
+        ],
+        "placement_credit": 0.8
+      },
+      {
+        "label": "REST API",
+        "aliases": [
+          "rest api",
+          "rest apis",
+          "rest endpoint",
+          "rest endpoints",
+          "restful api",
+          "restful apis"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+        "line_number": 6,
+        "matched_spellings": [
+          "REST API"
+        ],
+        "placement_credit": 0.8
+      },
+      {
+        "label": "Git",
+        "aliases": [
+          "git"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Collaborated with two interns and reviewed changes using Git.",
+        "line_number": 8,
+        "matched_spellings": [
+          "Git"
+        ],
+        "placement_credit": 0.7
+      },
+      {
+        "label": "Docker",
+        "aliases": [
+          "docker"
+        ],
+        "weight": 1,
+        "matched": true,
+        "evidence_line": "Python, SQL, PostgreSQL, Git, Docker, pytest",
+        "line_number": 13,
+        "matched_spellings": [
+          "Docker"
+        ],
+        "placement_credit": 0.5
+      },
+      {
+        "label": "Kubernetes",
+        "aliases": [
+          "kubernetes",
+          "k8s"
+        ],
+        "weight": 1,
+        "matched": false,
+        "evidence_line": null,
+        "line_number": null,
+        "matched_spellings": [],
+        "placement_credit": 0
+      },
+      {
+        "label": "AWS",
+        "aliases": [
+          "aws",
+          "amazon web services"
+        ],
+        "weight": 1,
+        "matched": false,
+        "evidence_line": null,
+        "line_number": null,
+        "matched_spellings": [],
+        "placement_credit": 0
+      },
+      {
+        "label": "automated testing",
+        "aliases": [
+          "automated testing",
+          "unit testing",
+          "unit tests",
+          "pytest"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Added unit tests with pytest for input validation.",
+        "line_number": 9,
+        "matched_spellings": [
+          "pytest",
+          "unit tests"
+        ],
+        "placement_credit": 0.65
+      },
+      {
+        "label": "collaboration",
+        "aliases": [
+          "collaboration",
+          "collaborated",
+          "collaborate"
+        ],
+        "weight": 2,
+        "matched": true,
+        "evidence_line": "- Collaborated with two interns and reviewed changes using Git.",
+        "line_number": 8,
+        "matched_spellings": [
+          "Collaborated"
+        ],
+        "placement_credit": 0.7
+      }
+    ]
+  },
+  "delta": 6.35,
+  "changes": [
+    {
+      "source_line": 12,
+      "before": "EXPERIENCE",
+      "after": "EXPERIENCE",
+      "output_line": 4,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 13,
+      "before": "Software Engineering Intern | Example Corp | January\u2013June 2024 (6 months)",
+      "after": "Software Engineering Intern | Example Corp | January\u2013June 2024 (6 months)",
+      "output_line": 5,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 15,
+      "before": "- Built Python REST endpoints for an inventory tool using Postgres and SQL,",
+      "after": "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+      "output_line": 6,
+      "rewritten": true,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 16,
+      "before": "  reducing manual lookup time by 20% in a synthetic benchmark.",
+      "after": "  reducing manual lookup time by 20% in a synthetic benchmark.",
+      "output_line": 7,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 18,
+      "before": "- Collaborated with two interns and reviewed changes using Git.",
+      "after": "- Collaborated with two interns and reviewed changes using Git.",
+      "output_line": 8,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 17,
+      "before": "- Added unit tests with pytest for input validation.",
+      "after": "- Added unit tests with pytest for input validation.",
+      "output_line": 9,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 14,
+      "before": "- Updated internal onboarding notes for the team.",
+      "after": "- Updated internal onboarding notes for the team.",
+      "output_line": 10,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 25,
+      "before": "TECHNICAL SKILLS",
+      "after": "TECHNICAL SKILLS",
+      "output_line": 12,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 26,
+      "before": "Python, SQL, Postgres, Git, Docker, pytest",
+      "after": "Python, SQL, PostgreSQL, Git, Docker, pytest",
+      "output_line": 13,
+      "rewritten": true,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 20,
+      "before": "PROJECTS",
+      "after": "PROJECTS",
+      "output_line": 15,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 21,
+      "before": "Campus Inventory Demo | Academic project | 2024",
+      "after": "Campus Inventory Demo | Academic project | 2024",
+      "output_line": 16,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 23,
+      "before": "- Packaged the Python service in Docker for local demonstrations.",
+      "after": "- Packaged the Python service in Docker for local demonstrations.",
+      "output_line": 17,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 22,
+      "before": "- Wrote a short installation guide for classmates.",
+      "after": "- Wrote a short installation guide for classmates.",
+      "output_line": 18,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 8,
+      "before": "EDUCATION",
+      "after": "EDUCATION",
+      "output_line": 20,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 9,
+      "before": "BS in Computer Science, Example University, 2024",
+      "after": "BS in Computer Science, Example University, 2024",
+      "output_line": 21,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 10,
+      "before": "Coursework: algorithms, databases and software engineering.",
+      "after": "Coursework: algorithms, databases and software engineering.",
+      "output_line": 22,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 4,
+      "before": "INTERESTS",
+      "after": "INTERESTS",
+      "output_line": 24,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 5,
+      "before": "- Organize the campus board game calendar.",
+      "after": "- Organize the campus board game calendar.",
+      "output_line": 25,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 6,
+      "before": "- Photograph local architecture on weekends.",
+      "after": "- Photograph local architecture on weekends.",
+      "output_line": 26,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    }
+  ],
+  "provenance": [
+    {
+      "source_line": 1,
+      "before": "Alex Example",
+      "after": "Alex Example",
+      "output_line": 1,
+      "rewritten": false,
+      "moved": false,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 2,
+      "before": "alex@example.test | Fictional candidate for the CS6983 simulation",
+      "after": "alex@example.test | Fictional candidate for the CS6983 simulation",
+      "output_line": 2,
+      "rewritten": false,
+      "moved": false,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 12,
+      "before": "EXPERIENCE",
+      "after": "EXPERIENCE",
+      "output_line": 4,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 13,
+      "before": "Software Engineering Intern | Example Corp | January\u2013June 2024 (6 months)",
+      "after": "Software Engineering Intern | Example Corp | January\u2013June 2024 (6 months)",
+      "output_line": 5,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 15,
+      "before": "- Built Python REST endpoints for an inventory tool using Postgres and SQL,",
+      "after": "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+      "output_line": 6,
+      "rewritten": true,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 16,
+      "before": "  reducing manual lookup time by 20% in a synthetic benchmark.",
+      "after": "  reducing manual lookup time by 20% in a synthetic benchmark.",
+      "output_line": 7,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 18,
+      "before": "- Collaborated with two interns and reviewed changes using Git.",
+      "after": "- Collaborated with two interns and reviewed changes using Git.",
+      "output_line": 8,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 17,
+      "before": "- Added unit tests with pytest for input validation.",
+      "after": "- Added unit tests with pytest for input validation.",
+      "output_line": 9,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 14,
+      "before": "- Updated internal onboarding notes for the team.",
+      "after": "- Updated internal onboarding notes for the team.",
+      "output_line": 10,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 25,
+      "before": "TECHNICAL SKILLS",
+      "after": "TECHNICAL SKILLS",
+      "output_line": 12,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 26,
+      "before": "Python, SQL, Postgres, Git, Docker, pytest",
+      "after": "Python, SQL, PostgreSQL, Git, Docker, pytest",
+      "output_line": 13,
+      "rewritten": true,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 20,
+      "before": "PROJECTS",
+      "after": "PROJECTS",
+      "output_line": 15,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 21,
+      "before": "Campus Inventory Demo | Academic project | 2024",
+      "after": "Campus Inventory Demo | Academic project | 2024",
+      "output_line": 16,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 23,
+      "before": "- Packaged the Python service in Docker for local demonstrations.",
+      "after": "- Packaged the Python service in Docker for local demonstrations.",
+      "output_line": 17,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 22,
+      "before": "- Wrote a short installation guide for classmates.",
+      "after": "- Wrote a short installation guide for classmates.",
+      "output_line": 18,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 8,
+      "before": "EDUCATION",
+      "after": "EDUCATION",
+      "output_line": 20,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 9,
+      "before": "BS in Computer Science, Example University, 2024",
+      "after": "BS in Computer Science, Example University, 2024",
+      "output_line": 21,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 10,
+      "before": "Coursework: algorithms, databases and software engineering.",
+      "after": "Coursework: algorithms, databases and software engineering.",
+      "output_line": 22,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 4,
+      "before": "INTERESTS",
+      "after": "INTERESTS",
+      "output_line": 24,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 5,
+      "before": "- Organize the campus board game calendar.",
+      "after": "- Organize the campus board game calendar.",
+      "output_line": 25,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    },
+    {
+      "source_line": 6,
+      "before": "- Photograph local architecture on weekends.",
+      "after": "- Photograph local architecture on weekends.",
+      "output_line": 26,
+      "rewritten": false,
+      "moved": true,
+      "reason": "Move whole claim blocks with continuations; honor explicit wording and section-order preferences."
+    }
+  ],
+  "unmet_requirements": [
+    "Kubernetes",
+    "AWS"
+  ],
+  "method": "Score = 0.8 \u00d7 weighted requirement coverage + 0.2 \u00d7 weighted first-evidence prominence. Prominence per match = 1 \u2212 nonblank-line rank / max(1, nonblank-line count \u2212 1). Missing requirements receive zero. JD lines containing required/must/essential have weight 2; others weight 1. The same aliases, weights, and requirements are frozen before tailoring.",
+  "limitations": "Lexical diagnostic, not an ATS score or hiring probability. Curated vocabulary only; no inference of years, seniority, degree equivalence or semantic entailment. Negated/uncertain clauses receive no credit. Tailoring only reorders existing sections/bullets and normalizes explicit technology spellings; it cannot fill qualification gaps. Extracted PDF/DOCX layout is not preserved. Review the text and provenance before use. Wrapped, indented continuation lines stay with their claim block. Wording/order preferences are explicit controls. This remains a lexical diagnostic, not a general semantic verifier.",
+  "preferences": {
+    "education_first": false,
+    "preserve_wording": false
+  },
+  "score_interpretation": "Presentation/relevance index 77.18 \u2192 83.53; qualification coverage 88.24% \u2192 88.24%. Ordering can change prominence, not candidate qualifications. User constraints take priority over maximizing this index.",
+  "upload_sha256": "11a07cfdcd37868b0be90083c4afd2b55de83c3ee9a407a11926e58d51bce8ff"
+}

@@ -1,0 +1,52 @@
+test_identity_and_employer_names_are_not_canonicalized (test_resume_review.ClaimBlockTests.test_identity_and_employer_names_are_not_canonicalized) ... ok
+test_unindented_ambiguous_continuation_keeps_its_original_bullet (test_resume_review.ClaimBlockTests.test_unindented_ambiguous_continuation_keeps_its_original_bullet) ... ok
+test_verbatim_preference_is_exact_for_every_nonblank_line (test_resume_review.ClaimBlockTests.test_verbatim_preference_is_exact_for_every_nonblank_line) ... ok
+test_artifact_tampering_invalidates_approval_fingerprint (test_resume_review.ReviewBrowserTests.test_artifact_tampering_invalidates_approval_fingerprint) ... ok
+test_real_feedback_changes_file_and_approved_artifact_is_submitted (test_resume_review.ReviewBrowserTests.test_real_feedback_changes_file_and_approved_artifact_is_submitted) ... ok
+test_stale_version_and_changed_jd_or_preferences_revoke_browser_permission (test_resume_review.ReviewBrowserTests.test_stale_version_and_changed_jd_or_preferences_revoke_browser_permission) ... ok
+test_stop_and_unrecognized_feedback_never_submit (test_resume_review.ReviewBrowserTests.test_stop_and_unrecognized_feedback_never_submit) ... ok
+test_chinese_direct_requests (test_resume_review.ReviewIntentTests.test_chinese_direct_requests) ... ok
+test_cited_requirements_in_an_explicit_repair_request (test_resume_review.ReviewIntentTests.test_cited_requirements_in_an_explicit_repair_request) ... ok
+test_direct_preferences_and_explicit_false (test_resume_review.ReviewIntentTests.test_direct_preferences_and_explicit_false) ... ok
+test_observations_negations_and_partial_approval_do_not_grant_permission (test_resume_review.ReviewIntentTests.test_observations_negations_and_partial_approval_do_not_grant_permission) ... ok
+test_current_version_approval_is_required_and_regeneration_revokes_it (test_resume_study.ProposedApprovalTests.test_current_version_approval_is_required_and_regeneration_revokes_it) ... ok
+test_baseline_reproduces_wrong_claim_attribution_despite_line_retention (test_resume_study.TailoringStudyTests.test_baseline_reproduces_wrong_claim_attribution_despite_line_retention) ... ok
+test_feedback_recorder_rejects_a_simulated_run (test_resume_study.TailoringStudyTests.test_feedback_recorder_rejects_a_simulated_run) ... ok
+test_human_and_llm_users_use_identical_agent_facing_text_channel (test_resume_study.TailoringStudyTests.test_human_and_llm_users_use_identical_agent_facing_text_channel) ... ok
+test_preferences_are_explicit_booleans (test_resume_study.TailoringStudyTests.test_preferences_are_explicit_booleans) ... ok
+test_proposed_moves_whole_claim_blocks (test_resume_study.TailoringStudyTests.test_proposed_moves_whole_claim_blocks) ... ok
+test_proposed_ui_exposes_controls_and_separate_metric_explanation (test_resume_study.TailoringStudyTests.test_proposed_ui_exposes_controls_and_separate_metric_explanation) ... ok
+test_rewards_are_numeric_and_require_correct_authoritative_fields (test_resume_study.TailoringStudyTests.test_rewards_are_numeric_and_require_correct_authoritative_fields) ... ok
+test_two_employers_keep_their_own_bullets_and_wrapped_claims (test_resume_study.TailoringStudyTests.test_two_employers_keep_their_own_bullets_and_wrapped_claims) ... ok
+test_user_preferences_outrank_presentation_score (test_resume_study.TailoringStudyTests.test_user_preferences_outrank_presentation_score) ... ok
+test_docx_paragraphs_and_table_text (test_resume_workflow.FileTests.test_docx_paragraphs_and_table_text) ... ok
+test_text_pdf_and_scanned_pdf (test_resume_workflow.FileTests.test_text_pdf_and_scanned_pdf) ... ok
+test_txt_and_invalid_inputs (test_resume_workflow.FileTests.test_txt_and_invalid_inputs) ... ok
+test_bullets_remain_attached_to_their_employer (test_resume_workflow.ScoringTests.test_bullets_remain_attached_to_their_employer) ... ok
+test_equivalent_spellings_and_boundaries (test_resume_workflow.ScoringTests.test_equivalent_spellings_and_boundaries) ... ok
+test_jd_is_data_and_html_is_escaped (test_resume_workflow.ScoringTests.test_jd_is_data_and_html_is_escaped) ... ok
+test_negative_uncertain_and_dotted_claims (test_resume_workflow.ScoringTests.test_negative_uncertain_and_dotted_claims) ... ok
+test_no_skill_match_is_zero_and_no_supported_jd_is_explicit (test_resume_workflow.ScoringTests.test_no_skill_match_is_zero_and_no_supported_jd_is_explicit) ... ok
+test_placement_changes_without_inventing_coverage (test_resume_workflow.ScoringTests.test_placement_changes_without_inventing_coverage) ... ok
+test_invalid_upload_and_missing_jd (test_resume_workflow.ServerTests.test_invalid_upload_and_missing_jd) ... 127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /api/tailor HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /api/tailor HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /api/tailor HTTP/1.1" 400 -
+ok
+test_stale_tampered_or_unaccepted_resume_is_rejected (test_resume_workflow.ServerTests.test_stale_tampered_or_unaccepted_resume_is_rejected) ... 127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /api/tailor HTTP/1.1" 201 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 400 -
+ok
+test_submission_verifies_actual_resume_and_jd (test_resume_workflow.ServerTests.test_submission_verifies_actual_resume_and_jd) ... 127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /api/tailor HTTP/1.1" 201 -
+127.0.0.1 - - [16/Nov/2026 00:32:44] "POST /submit HTTP/1.1" 201 -
+ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 6.138s
+
+OK

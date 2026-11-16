@@ -1,0 +1,11 @@
+{
+  "wrapped_claim_preserved_without_preferences": true,
+  "file_selection_disabled_before_approval": true,
+  "preference_edit_invalidates_comparison": true,
+  "new_version_generated": true,
+  "explicit_preferences_reach_engine": true,
+  "all_review_constraints_hold": true,
+  "source_claims_supported": true,
+  "score_explains_unchanged_coverage": true,
+  "approved_local_submission_verified": true
+}
