@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-11-16T05:32:09.802083+00:00",
+  "terminated_pids": [
+    30817,
+    30842
+  ],
+  "remaining_ollama_processes": [],
+  "port_11434_listening": false,
+  "action": "SIGTERM only; no model removal or uninstall commands executed."
+}

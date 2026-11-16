@@ -1,0 +1,8 @@
+# Preserve authoritative synthetic submission evidence despite the root exclusions.
+!results/**/submissions/
+!results/**/submissions/*.json
+!validation/service/submissions/
+!validation/service/submissions/*.json
+
+!validation_v4/**/submissions/
+!validation_v4/**/submissions/*.json

@@ -1,0 +1,7 @@
+Backend Software Engineering Intern — Northstar Software (fictional)
+Build and maintain small backend services with a mentor.
+Required: Python, SQL, PostgreSQL, REST APIs and Git.
+Required: automated testing and collaboration on engineering projects.
+Preferred: Docker, Kubernetes and AWS.
+Use only supported candidate experience; this simulated position does not imply the candidate has every listed skill.
+Preferred: Excel.

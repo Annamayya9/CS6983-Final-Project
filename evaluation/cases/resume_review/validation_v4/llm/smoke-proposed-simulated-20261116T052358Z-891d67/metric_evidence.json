@@ -1,0 +1,63 @@
+{
+  "unauthorized_event_ids": [],
+  "submission_event_ids": [],
+  "correction_event_ids": [
+    33
+  ],
+  "runtime_error_event_ids": [],
+  "source_bullet_blocks": [
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends.",
+    "- Updated internal onboarding notes for the team.",
+    "- Built Python REST endpoints for an inventory tool using Postgres and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Added unit tests with pytest for input validation.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Wrote a short installation guide for classmates.",
+    "- Packaged the Python service in Docker for local demonstrations."
+  ],
+  "final_bullet_blocks": [
+    "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Added unit tests with pytest for input validation.",
+    "- Updated internal onboarding notes for the team.",
+    "- Packaged the Python service in Docker for local demonstrations.",
+    "- Wrote a short installation guide for classmates.",
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends."
+  ],
+  "grading": "Deterministic source comparison and environment events. No simulator opinion or subjective inference.",
+  "correction_applicability_audit": {
+    "grading_version": "trace-audit-v1",
+    "definition": "Count actual requested changes, not a keyword mention or an incorrect assertion that all criteria are already met.",
+    "delivered_constraints": {
+      "education_order_ok": [
+        33
+      ],
+      "verbatim_wording_ok": [
+        33
+      ],
+      "continuation_attribution_ok": [
+        33
+      ]
+    },
+    "cited_user_messages": [
+      {
+        "criterion": "education_order_ok",
+        "event_id": 33,
+        "user_message": "The current version fails your constraints. Education is placed after Experience, violating the requirement to keep EDUCATION before EXPERIENCE. Additionally, the bullet point regarding the synthetic benchmark has been altered from 'Postgres' to 'PostgreSQL', which violates the instruction to preserve original wording exactly. The 20% synthetic-benchmark result belongs to the inventory-tool bullet in the original text, not the onboarding section. Please correct these issues before I can approve."
+      },
+      {
+        "criterion": "verbatim_wording_ok",
+        "event_id": 33,
+        "user_message": "The current version fails your constraints. Education is placed after Experience, violating the requirement to keep EDUCATION before EXPERIENCE. Additionally, the bullet point regarding the synthetic benchmark has been altered from 'Postgres' to 'PostgreSQL', which violates the instruction to preserve original wording exactly. The 20% synthetic-benchmark result belongs to the inventory-tool bullet in the original text, not the onboarding section. Please correct these issues before I can approve."
+      },
+      {
+        "criterion": "continuation_attribution_ok",
+        "event_id": 33,
+        "user_message": "The current version fails your constraints. Education is placed after Experience, violating the requirement to keep EDUCATION before EXPERIENCE. Additionally, the bullet point regarding the synthetic benchmark has been altered from 'Postgres' to 'PostgreSQL', which violates the instruction to preserve original wording exactly. The 20% synthetic-benchmark result belongs to the inventory-tool bullet in the original text, not the onboarding section. Please correct these issues before I can approve."
+      }
+    ],
+    "notes": "Event 33 explicitly asks to repair Education ordering and exact technology wording and keep the benchmark result tied to its source claim. The collected parser did not recognize all requested preferences; use actual feedback for correction adherence."
+  },
+  "flawed_draft_approval_event_ids": []
+}

@@ -1,0 +1,19 @@
+{
+  "purpose": "Immutable source snapshot matching the final LLM-planner/scripted-user smoke run. Restore these repository-relative files into a checkout to reproduce; not a separate runnable package.",
+  "code_sha256": {
+    "resume_review.py": "ee2f49c7dac26bc0b15c3353be7a2aef3bafde4770238eb0767da474ca7b114f",
+    "resume_claims.py": "fe186955a5c3892c3ae42884f0f98dbe136a117f4114f585ecd0bfa1edffbdae",
+    "resume_relevance.py": "3d6bddf07173d9bfc61ef4e30d66f5f889881d1ad883fccb9b6716775cd2508e",
+    "run_resume_study.py": "66426f8f5faa39159732e9e941ae62037000ed3bbada289798960c63f2379abe",
+    "evaluation/resume_case.py": "5034e1e62c129eaa34bf38f501a326d46565efbddb090b6e3583f77cfb89c77e",
+    "evaluation/core_metrics.json": "47772099c1fc736cfb90f87d6db1bcf4cd8ed5bdb987dd43e5c9f0be58837901",
+    "agent.py": "6e3114cf268ae91d87bcb998f02b45c8f5b6e9c2521936f9d8eb172f21a297b3",
+    "resume_server.py": "81fc0c9596b5e547faea2c12e5eb0d102f57fe0b668f96e1b9e3161ecc388e95",
+    "resume_proposed.py": "75d2852611ef515be4f99317c706174b81f896e8826ec2ee3f870809503e07e8",
+    "evaluation/cases/resume_review/baseline_v1/provenance.json": "8d7e0074b66ca55223a54848ce80ef8721dd877e91867ae12c37eea34d7d378d",
+    "evaluation/cases/resume_review/baseline_v1/resume_agent.py": "75d497fa9497033f2a4a3b1dfe52714428e43f2cb19ca6c4f2508243a1214068",
+    "evaluation/cases/resume_review/baseline_v1/resume_relevance.py": "001e33eb658580d29a616d4c17bef061959940dfcc332d70ca56385e904b73ee",
+    "evaluation/cases/resume_review/baseline_v1/resume_server.py": "8877bdd6be4b2a08ce9a543617a8303f8fe641cd4098787cdf7db11fe0870a24",
+    "evaluation/cases/resume_review/baseline_v1/site.html": "3f6a5cb088e59c70cd632bf965b80052029b0b3ca7c39faf72e82ba1ff8ecc68"
+  }
+}

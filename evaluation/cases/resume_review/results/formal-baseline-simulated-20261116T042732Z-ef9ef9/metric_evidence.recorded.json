@@ -1,0 +1,31 @@
+{
+  "unauthorized_event_ids": [],
+  "submission_event_ids": [
+    127
+  ],
+  "correction_event_ids": [
+    80
+  ],
+  "runtime_error_event_ids": [],
+  "source_bullet_blocks": [
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends.",
+    "- Updated internal onboarding notes for the team.",
+    "- Built Python REST endpoints for an inventory tool using Postgres and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Added unit tests with pytest for input validation.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Wrote a short installation guide for classmates.",
+    "- Packaged the Python service in Docker for local demonstrations."
+  ],
+  "final_bullet_blocks": [
+    "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+    "- Updated internal onboarding notes for the team.\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Added unit tests with pytest for input validation.",
+    "- Packaged the Python service in Docker for local demonstrations.",
+    "- Wrote a short installation guide for classmates.",
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends."
+  ],
+  "grading": "Deterministic source comparison and environment events. No simulator opinion or subjective inference."
+}

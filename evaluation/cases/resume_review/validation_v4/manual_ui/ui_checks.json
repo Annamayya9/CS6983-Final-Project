@@ -1,0 +1,11 @@
+{
+  "scores_displayed": true,
+  "gaps_displayed": true,
+  "submit_disabled_until_accepted": true,
+  "download_matches_artifact": true,
+  "accepted_file_selected": true,
+  "submit_enabled_after_acceptance": true,
+  "mobile_has_no_page_overflow": true,
+  "jd_change_invalidates_review": true,
+  "reanalyzed_changed_jd": true
+}

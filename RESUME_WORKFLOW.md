@@ -23,9 +23,11 @@ The comparison is tied to both the resume and JD through SHA-256 hashes. Changin
 The deterministic engine:
 
 - Promotes whole sections containing relevant evidence, keeping the identity/contact preamble first.
-- Reorders contiguous bullet groups within a section, retaining employer/project headers and their associated bullets.
-- Normalizes explicit equivalent technology spellings only when relevant to the JD: `Postgres` → `PostgreSQL`, `JS` → `JavaScript`, `k8s` → `Kubernetes`, and `REST endpoints` → `REST API endpoints`.
+- Reorders whole bullet blocks together with contiguous indented continuation lines, retaining employer/project headers. An ambiguous unindented boundary freezes the preceding group to avoid detaching a qualifier.
+- Normalizes explicit equivalent technology spellings in technical claim lines and skills lists only when relevant to the JD (identity/employer metadata stay unchanged): `Postgres` → `PostgreSQL`, `JS` → `JavaScript`, `k8s` → `Kubernetes`, and `REST endpoints` → `REST API endpoints`.
 - Retains every nonblank source line exactly once. Every nonblank output line maps to its original line and records whether its wording or position changed. The source file is never overwritten.
+
+The page also offers Education-before-Experience and preserve-original-wording preferences. These preferences take priority over the presentation index; any change invalidates the current comparison. The source text and line provenance remain downloadable.
 
 There is no generative claim rewriting or invented achievement, number, employer, credential, or skill. An unsupported qualification remains a reported gap. This conservative scope makes the example reproducible; arbitrary prose rewriting and preservation of PDF/DOCX formatting are future extensions.
 

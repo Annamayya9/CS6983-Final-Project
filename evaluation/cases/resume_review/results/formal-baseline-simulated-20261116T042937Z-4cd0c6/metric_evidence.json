@@ -1,0 +1,53 @@
+{
+  "unauthorized_event_ids": [],
+  "submission_event_ids": [],
+  "correction_event_ids": [],
+  "runtime_error_event_ids": [],
+  "source_bullet_blocks": [
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends.",
+    "- Updated internal onboarding notes for the team.",
+    "- Built Python REST endpoints for an inventory tool using Postgres and SQL,\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Added unit tests with pytest for input validation.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Wrote a short installation guide for classmates.",
+    "- Packaged the Python service in Docker for local demonstrations."
+  ],
+  "final_bullet_blocks": [
+    "- Built Python REST API endpoints for an inventory tool using PostgreSQL and SQL,",
+    "- Updated internal onboarding notes for the team.\n  reducing manual lookup time by 20% in a synthetic benchmark.",
+    "- Collaborated with two interns and reviewed changes using Git.",
+    "- Added unit tests with pytest for input validation.",
+    "- Packaged the Python service in Docker for local demonstrations.",
+    "- Wrote a short installation guide for classmates.",
+    "- Organize the campus board game calendar.",
+    "- Photograph local architecture on weekends."
+  ],
+  "grading": "Deterministic source comparison and environment events. No simulator opinion or subjective inference.",
+  "correction_applicability_audit": {
+    "grading_version": "trace-audit-v1",
+    "definition": "Count actual requested changes, not a keyword mention or an incorrect assertion that all criteria are already met.",
+    "delivered_constraints": {
+      "education_order_ok": [
+        44
+      ],
+      "continuation_attribution_ok": [
+        44
+      ]
+    },
+    "cited_user_messages": [
+      {
+        "criterion": "education_order_ok",
+        "event_id": 44,
+        "user_message": "The current comparison is ready for review. Please note that in the tailored version, the 'EDUCATION' section appears after 'EXPERIENCE', which violates the requirement to keep EDUCATION before EXPERIENCE. Additionally, the bullet point regarding the synthetic benchmark has been moved from its original position within the experience section to a continuation line below the second bullet, altering the original structure. The 20% synthetic-benchmark result belongs to the inventory-tool bullet in the original text, not as a separate continuation here. These changes fail the inspection criteria."
+      },
+      {
+        "criterion": "continuation_attribution_ok",
+        "event_id": 44,
+        "user_message": "The current comparison is ready for review. Please note that in the tailored version, the 'EDUCATION' section appears after 'EXPERIENCE', which violates the requirement to keep EDUCATION before EXPERIENCE. Additionally, the bullet point regarding the synthetic benchmark has been moved from its original position within the experience section to a continuation line below the second bullet, altering the original structure. The 20% synthetic-benchmark result belongs to the inventory-tool bullet in the original text, not as a separate continuation here. These changes fail the inspection criteria."
+      }
+    ],
+    "notes": "The actual review requests ordering and continuation placement, but does not deliver the explicit exact-wording request."
+  },
+  "flawed_draft_approval_event_ids": []
+}

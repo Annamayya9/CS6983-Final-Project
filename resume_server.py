@@ -75,7 +75,7 @@ class Handler(BaseHTTPRequestHandler):
                 except (ValueError, binascii.Error) as exc:
                     raise ValueError('Invalid base64 resume data.') from exc
                 text = extract_text(filename, raw)
-                report = build_comparison(text, jd, job_id, Path(filename).name)
+                report = build_comparison(text, jd, job_id, Path(filename).name, data.get("preferences"))
                 report['upload_sha256'] = sha256(raw)
                 artifact_id = uuid.uuid4().hex
                 write_artifacts(report, self.server.output / 'artifacts' / artifact_id)

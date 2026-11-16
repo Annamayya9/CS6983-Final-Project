@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resume tailoring · Simulated application</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{font:16px/1.5 system-ui;color:#17383d;background:#f4f7f5;margin:0}main{max-width:1100px;margin:2rem auto;padding:1rem}header{margin-bottom:2rem}h1{font-size:2.3rem;line-height:1.15;margin:.4rem 0}h2{font-size:1.25rem}section{background:white;border:1px solid #d8e4df;border-radius:16px;padding:1.5rem;margin:1.25rem 0}label{display:block;margin:1rem 0}input,textarea,select{display:block;width:100%;padding:.65rem;border:1px solid #aec1bb;border-radius:6px;font:inherit;margin-top:.35rem}textarea{min-height:8rem}input[type=checkbox]{display:inline;width:auto}button,.download{background:#195f54;color:white;border:0;border-radius:7px;padding:.7rem 1rem;font:inherit;cursor:pointer;display:inline-block;margin:.25rem .4rem .25rem 0}button:disabled{background:#c6d1cd;cursor:default}.secondary{background:#e7f1ed;color:#174f46}.columns{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.scores{display:flex;gap:1rem;flex-wrap:wrap}.score{background:#e9f5ee;border-radius:12px;padding:1rem;flex:1;min-width:180px}.score strong{display:block;font-size:2.2rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.65 ui-monospace,monospace;background:#f6f8f7;padding:1rem;border-radius:7px;max-height:420px;overflow:auto}.notice{color:#526961;font-size:.92rem}#workflow-status,#status{font-weight:600}a{color:#155b50}table{border-collapse:collapse;width:100%;font-size:.9rem}td,th{text-align:left;padding:.55rem;border-bottom:1px solid #d8e4df}#changes li{margin:.8rem 0}.badge{font-size:.8rem;letter-spacing:.1em;font-weight:700;color:#366b5d}button:focus-visible,a:focus-visible{outline:3px solid #d6872d;outline-offset:3px}[hidden]{display:none!important}@media(max-width:700px){.columns{grid-template-columns:1fr}h1{font-size:1.9rem}section{padding:1rem}}
+</style>
+<main>
+<header><span class="badge">LOCAL EXPERIMENT / SYNTHETIC DATA</span><h1>Make your experience easier to find.</h1><p>Tailor a resume to this position, inspect the evidence and changes, then complete a simulated application.</p></header>
+<section aria-labelledby="job-heading"><h2 id="job-heading">1. Position and job description</h2><p id="job-title"></p>
+<label>Position ID <input id="job-id" name="job_id" required maxlength="100"></label>
+<label>Job description <textarea id="jd" name="job_description" required></textarea></label></section>
+<section aria-labelledby="resume-heading"><h2 id="resume-heading">2. Upload and tailor</h2>
+<label>Resume <input id="resume" name="resume" type="file" accept=".txt,.pdf,.docx" required></label>
+<p class="notice">UTF-8 TXT, text PDF, or DOCX, up to 5 MiB. Output is editable plain text. Every nonblank source line is retained; only section/bullet order and explicit technology spellings can change.</p>
+<button id="tailor" type="button" disabled>Analyze &amp; tailor resume</button><p id="workflow-status" role="status" aria-live="polite">Loading position…</p>
+</section>
+<section id="comparison" hidden aria-labelledby="comparison-heading"><h2 id="comparison-heading">3. Compare and review</h2>
+<div class="scores"><div class="score">Before<strong id="before-score"></strong><span id="before-coverage"></span></div><div class="score">After<strong id="after-score"></strong><span id="after-coverage"></span></div><div class="score">Change<strong id="delta"></strong><span>relevance points</span></div></div>
+<p id="method" class="notice"></p><p class="notice">This is a lexical diagnostic, not an ATS score or hiring probability. Qualifications do not improve just because evidence moves earlier. Years, seniority and degree requirements are not scored.</p>
+<p><strong>Unmet requirements:</strong> <span id="gaps"></span></p>
+<details><summary>Requirement evidence</summary><table><thead><tr><th>Requirement</th><th>Before</th><th>After</th></tr></thead><tbody id="evidence"></tbody></table></details>
+<div class="columns"><div><h3>Original resume</h3><pre id="before-text"></pre></div><div><h3>Tailored resume</h3><pre id="after-text"></pre></div></div>
+<p id="change-summary"></p><details><summary>Inspect every changed line</summary><ol id="changes"></ol></details>
+<p><a id="full-comparison" target="_blank" rel="noopener">Open full comparison and diff</a> · <a id="download" download="tailored_resume.txt">Download tailored resume</a></p>
+<button id="use-tailored" type="button">Use reviewed tailored resume</button><p id="accepted" role="status"></p>
+</section>
+<section aria-labelledby="application-heading"><h2 id="application-heading">4. Simulated application</h2>
+<form id="application">
+<div class="columns"><label>Full name <input name="full_name" required></label><label>Email <input name="email" type="email" required></label></div>
+<label>Education <input name="education" required></label><label>Work experience <textarea name="experience" required></textarea></label>
+<label>Length of relevant work experience <input name="experience_duration" required></label>
+<label>Will you require work authorization sponsorship? <select name="sponsorship" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+<label><input name="consent" type="checkbox" required> I consent to the processing of this simulated application.</label>
+<button id="submit" type="submit" disabled>Submit simulated application</button>
+</form><p id="status" role="status" aria-live="polite"></p>
+</section></main>
+<script>
+const $ = selector => document.querySelector(selector);
+let result = null, accepted = false, generation = 0, submitting = false;
+const runId = crypto.randomUUID();
+document.body.dataset.runId = runId;
+function invalidate(){
+  generation++; result = null; accepted = false;
+  $('#comparison').hidden = true; $('#submit').disabled = true;
+  $('#accepted').textContent = ''; $('#status').textContent = '';
+  $('#tailor').disabled = !$('#resume').files.length || !$('#jd').value.trim();
+  $('#workflow-status').textContent = 'Analyze the current resume and job description to continue.';
+}
+$('#resume').addEventListener('change', invalidate);
+$('#jd').addEventListener('input', invalidate);
+$('#job-id').addEventListener('input', invalidate);
+async function base64(file){
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  let binary = '';
+  for(let i=0; i<bytes.length; i+=8192) binary += String.fromCharCode(...bytes.subarray(i,i+8192));
+  return btoa(binary);
+}
+async function post(path, data){
+  const response = await fetch(path, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  const body = await response.json();
+  if(!response.ok) throw new Error(body.error || 'Request failed');
+  return body;
+}
+function text(selector, value){$(selector).textContent = value;}
+$('#tailor').addEventListener('click', async () => {
+  const file = $('#resume').files[0], epoch = generation;
+  if(!file) return;
+  const jobId = $('#job-id').value, jd = $('#jd').value;
+  $('#tailor').disabled = true; text('#workflow-status','Analyzing source evidence and preparing comparison…');
+  try{
+    if(file.size > 5*1024*1024) throw new Error('Upload a resume no larger than 5 MiB.');
+    const response = await post('/api/tailor',{filename:file.name, content_base64:await base64(file),job_id:jobId,job_description:jd});
+    if(epoch !== generation) return;
+    result = response; accepted = false; $('#submit').disabled = true;
+    const r = result.report;
+    text('#change-summary',r.changes.filter(c=>c.rewritten).length+' lines use normalized technology spellings; '+r.changes.filter(c=>c.moved).length+' lines moved with their sections or bullet groups. All source claims are retained.');
+    text('#before-score',r.before.score.toFixed(2)); text('#after-score',r.after.score.toFixed(2));
+    text('#before-coverage',r.before.coverage_percent.toFixed(2)+'% requirement coverage');
+    text('#after-coverage',r.after.coverage_percent.toFixed(2)+'% requirement coverage');
+    text('#delta',(r.delta>=0?'+':'')+r.delta.toFixed(2)); text('#method',r.method);
+    text('#before-text',r.source_text); text('#after-text',r.tailored_text);
+    text('#gaps',r.unmet_requirements.join(', ') || 'None in the extracted vocabulary');
+    $('#changes').replaceChildren();
+    for(const c of r.changes){const li=document.createElement('li'); li.textContent='Source line '+c.source_line+' → output line '+c.output_line+': '+(c.rewritten?'“'+c.before+'” → “'+c.after+'”':'Moved “'+c.before+'”')+'. '+c.reason; $('#changes').append(li);}
+    if(!r.changes.length){const li=document.createElement('li');li.textContent='No changes were needed.';$('#changes').append(li);}
+    $('#evidence').replaceChildren();
+    r.before.requirements.forEach((a,i)=>{const tr=document.createElement('tr'); for(const value of [a.label,a.evidence_line||'Missing',r.after.requirements[i].evidence_line||'Missing']){const td=document.createElement('td');td.textContent=value;tr.append(td);}$('#evidence').append(tr);});
+    $('#full-comparison').href=result.comparison_url; $('#download').href=result.resume_url;
+    $('#comparison').hidden=false; text('#accepted','');
+    text('#workflow-status','Comparison ready. Review the text, changes and remaining gaps.');
+  }catch(error){if(epoch===generation) text('#workflow-status','Error: '+error.message);}
+  finally{if(epoch===generation) $('#tailor').disabled=false;}
+});
+$('#use-tailored').addEventListener('click',()=>{
+  if(!result) return;
+  const transfer=new DataTransfer();
+  transfer.items.add(new File([result.report.tailored_text],'tailored_resume.txt',{type:'text/plain'}));
+  $('#resume').files=transfer.files; accepted=true; $('#submit').disabled=false;
+  // Analyze remains disabled until the user selects another source or changes the JD.
+  $('#tailor').disabled=true;
+  text('#accepted','Reviewed tailored_resume.txt selected for this application.');
+});
+$('#application').addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(!accepted||!result||submitting){text('#status','Review and accept the tailored resume first.');return;}
+  submitting=true; $('#submit').disabled=true;
+  try{
+    const form=event.currentTarget, data=Object.fromEntries(new FormData(form));
+    Object.assign(data,{consent:form.elements.consent.checked, resume:$('#resume').files[0].name,
+      resume_content_base64:await base64($('#resume').files[0]),run_id:runId,tailored_accepted:accepted,
+      tailoring_id:result.tailoring_id,job_id:$('#job-id').value,job_description:$('#jd').value});
+    const response=await post('/submit',data);
+    text('#status','Submitted. Reference: '+response.id);
+  }catch(error){text('#status','Error: '+error.message);}
+  finally{submitting=false;$('#submit').disabled=!accepted;}
+});
+fetch('/api/job').then(r=>{if(!r.ok)throw new Error('Could not load position');return r.json();}).then(job=>{
+  $('#job-id').value=job.id;$('#jd').value=job.description;text('#job-title',job.title+' · '+job.company);invalidate();
+}).catch(error=>text('#workflow-status','Error: '+error.message));
+</script></html>
