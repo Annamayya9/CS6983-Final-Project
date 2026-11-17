@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Simulated job applications</title>
+<style>body{font:16px system-ui;max-width:720px;margin:2rem auto;padding:0 1rem;color:#17212c}nav{display:flex;gap:.75rem;margin:1.25rem 0}button{padding:.65rem 1rem;cursor:pointer}nav button[aria-pressed=true]{background:#17365a;color:white}label{display:block;margin:1rem 0}input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:.5rem;margin-top:.3rem}input[type=checkbox]{display:inline;width:auto}.status{margin-top:1rem}small{color:#445}</style></head>
+<body><h1>Simulated job applications</h1><p>Use synthetic test data only. These applications are stored locally.</p>
+<nav aria-label="Choose an application">
+  <button type="button" data-job-target="job-a" aria-pressed="true">Job A: Software Engineer</button>
+  <button type="button" data-job-target="job-b" aria-pressed="false">Job B: Data Analyst</button>
+</nav>
+<section data-panel="job-a"><h2>Job A: Software Engineer</h2><p>Example Labs · Remote</p><div class="form-container"></div></section>
+<section data-panel="job-b" hidden><h2>Job B: Data Analyst</h2><p>Sample Analytics · Boston</p><div class="form-container"></div></section>
+<template id="form-template">
+  <form>
+    <label>Full name <input name="full_name" required></label>
+    <label>Email <input name="email" type="email" required></label>
+    <label>Education <input name="education" required></label>
+    <label>Work experience <textarea name="experience" required></textarea></label>
+    <label>Length of relevant work experience <input name="experience_duration" required></label>
+    <label>Will you require work authorization sponsorship? <select name="sponsorship" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+    <label>Salary expectation for this job <input name="salary_expectation"></label>
+    <label>Résumé <input name="resume" type="file" accept=".pdf,.txt,.doc,.docx"></label>
+    <label><input name="consent" type="checkbox" required> I consent to the processing of this simulated application.</label>
+    <button type="submit">Submit application</button>
+  </form>
+  <p class="status" role="status"></p>
+</template>
+<script>
+const panels = [...document.querySelectorAll('[data-panel]')];
+for (const panel of panels) {
+  const jobId = panel.dataset.panel;
+  panel.querySelector('.form-container').append(document.querySelector('#form-template').content.cloneNode(true));
+  const form = panel.querySelector('form');
+  form.dataset.jobId = jobId;
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+    data.job_id = jobId;
+    data.consent = form.elements.consent.checked;
+    data.resume = form.elements.resume.files[0]?.name || '';
+    const status = panel.querySelector('.status');
+    try {
+      const response = await fetch('/submit', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+      if (!response.ok) throw new Error('Submission failed');
+      const result = await response.json();
+      status.textContent = 'Submitted. Reference: ' + result.id;
+    } catch (error) { status.textContent = 'Error: ' + error.message; }
+  });
+}
+for (const button of document.querySelectorAll('[data-job-target]')) {
+  button.addEventListener('click', () => {
+    for (const panel of panels) panel.hidden = panel.dataset.panel !== button.dataset.jobTarget;
+    for (const candidate of document.querySelectorAll('[data-job-target]'))
+      candidate.setAttribute('aria-pressed', String(candidate === button));
+  });
+}
+</script></body></html>

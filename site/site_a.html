@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Example Labs — Software Engineer</title>
+<style>body{font:16px system-ui;max-width:720px;margin:2rem auto;padding:0 1rem;color:#17212c}label{display:block;margin:1rem 0}input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:.5rem;margin-top:.3rem}input[type=checkbox]{display:inline;width:auto}button{padding:.65rem 1rem}.notice{background:#eef4fb;padding:.75rem}</style></head>
+<body data-site-id="site-a" data-job-id="job-a"><h1>Example Labs</h1><h2>Software Engineer</h2>
+<p class="notice">Simulated application for synthetic test data. Submissions are stored locally.</p>
+<section><h3>Job description</h3><div data-job-description style="white-space:pre-line">Software Engineer at Example Labs.
+Required: Python, SQL, and REST API development.
+Experience with JavaScript and collaboration is desirable.</div></section>
+<form id="application-a">
+<label>Full name <input name="full_name" required></label>
+<label>Email <input name="email" type="email" required></label>
+<label>Education <input name="education" required></label>
+<label>Work experience <textarea name="experience" required></textarea></label>
+<label>Length of relevant work experience <input name="experience_duration" required></label>
+<label>Will you require work authorization sponsorship? <select name="sponsorship" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+<label>Salary expectation for this job <input name="salary_expectation"></label>
+<label>Résumé <input name="resume" type="file" accept=".pdf,.txt,.doc,.docx"></label>
+<label><input name="consent" type="checkbox" required> I consent to Example Labs processing this simulated application.</label>
+<button type="submit">Submit to Example Labs</button>
+</form><p id="status" role="status"></p>
+<script>
+document.querySelector('form').addEventListener('submit', async event => {
+  event.preventDefault(); const form = event.currentTarget, data = Object.fromEntries(new FormData(form));
+  data.consent = form.elements.consent.checked; data.resume = form.elements.resume.files[0]?.name || '';
+  const file = form.elements.resume.files[0];
+  if (file) { const bytes = new Uint8Array(await file.arrayBuffer()); let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte); data.resume_content_base64 = btoa(binary); }
+  try { const response = await fetch('/submit', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    if (!response.ok) throw new Error('Submission failed'); const result = await response.json();
+    document.querySelector('#status').textContent = 'Submitted. Reference: ' + result.id;
+  } catch (error) { document.querySelector('#status').textContent = 'Error: ' + error.message; }
+});
+</script></body></html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Sample Analytics — Data Analyst</title>
+<style>body{font:16px system-ui;max-width:760px;margin:2rem auto;padding:0 1rem;color:#25232c}header{background:#3d355c;color:white;padding:1rem 1.25rem}fieldset{margin:1rem 0;padding:1rem;border:1px solid #aaa}label{display:block;margin:.75rem 0}input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:.5rem;margin-top:.3rem}input[type=checkbox]{display:inline;width:auto}button{background:#3d355c;color:white;padding:.7rem 1rem;border:0}</style></head>
+<body data-site-id="site-b" data-job-id="job-b"><header><h1>Sample Analytics</h1><p>Data Analyst · Boston</p></header>
+<p>Simulated application. Use synthetic data; records stay on this computer.</p>
+<section><h2>Job description</h2><div data-job-description style="white-space:pre-line">Data Analyst at Sample Analytics.
+Required: SQL, Python, and data analysis.
+Experience with Tableau, Excel, and communication is desirable.</div></section>
+<form id="candidate-form">
+<fieldset><legend>Candidate details</legend>
+<label>Legal name <input name="candidate_name" required></label>
+<label>Contact email <input name="contact_email" type="email" required></label>
+<label>Highest education <input name="qualification" required></label></fieldset>
+<fieldset><legend>Experience and preferences</legend>
+<label>Describe relevant work <textarea name="work_history" required></textarea></label>
+<label>Relevant experience duration <input name="work_duration" required></label>
+<label>Do you need sponsorship? <select name="work_sponsorship" required><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+<label>Desired annual salary <input name="desired_salary"></label>
+<label>Upload résumé <input name="resume_file" type="file" accept=".pdf,.txt,.doc,.docx"></label></fieldset>
+<fieldset><legend>Authorization</legend><label><input name="processing_agreement" type="checkbox" required> I consent to Sample Analytics processing this simulated application.</label></fieldset>
+<button type="submit">Send application</button>
+</form><p id="status" role="status"></p>
+<script>
+document.querySelector('form').addEventListener('submit', async event => {
+  event.preventDefault(); const form = event.currentTarget, data = Object.fromEntries(new FormData(form));
+  data.processing_agreement = form.elements.processing_agreement.checked; data.resume_file = form.elements.resume_file.files[0]?.name || '';
+  const file = form.elements.resume_file.files[0];
+  if (file) { const bytes = new Uint8Array(await file.arrayBuffer()); let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte); data.resume_content_base64 = btoa(binary); }
+  try { const response = await fetch('/submit', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    if (!response.ok) throw new Error('Submission failed'); const result = await response.json();
+    document.querySelector('#status').textContent = 'Submitted. Reference: ' + result.id;
+  } catch (error) { document.querySelector('#status').textContent = 'Error: ' + error.message; }
+});
+</script></body></html>

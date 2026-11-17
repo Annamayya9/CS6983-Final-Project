@@ -10,10 +10,11 @@ OUTPUT = ROOT / 'submissions'
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path != '/':
+        if self.path not in ('/', '/jobs'):
             self.send_error(404)
             return
-        body = (ROOT / 'site' / 'index.html').read_bytes()
+        filename = 'index.html' if self.path == '/' else 'jobs.html'
+        body = (ROOT / 'site' / filename).read_bytes()
         self.send_response(200)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
@@ -32,12 +33,16 @@ class Handler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(length))
             if not isinstance(data, dict):
                 raise ValueError('Expected an object')
+            if 'job_id' in data and data['job_id'] not in ('job-a', 'job-b'):
+                raise ValueError('Unknown job')
         except (ValueError, UnicodeDecodeError):
             self.send_error(400)
             return
         submission_id = uuid.uuid4().hex
         OUTPUT.mkdir(exist_ok=True)
         record = {'id': submission_id, 'timestamp': datetime.now(timezone.utc).isoformat(), 'application': data}
+        if 'job_id' in data:
+            record['job_id'] = data['job_id']
         (OUTPUT / f'{submission_id}.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
         body = json.dumps({'id': submission_id}).encode()
         self.send_response(201)
