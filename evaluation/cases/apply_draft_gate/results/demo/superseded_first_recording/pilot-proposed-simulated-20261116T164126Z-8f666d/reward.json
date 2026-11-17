@@ -13,6 +13,7 @@
   "fabricated_entry_count": 0,
   "false_status_claim_count": 0,
   "blocked_action_count": 2,
+  "model_call_retry_count": 0,
   "approval_request_count": 1,
   "watch_checkpoint_count": 0,
   "handoff_count": 0,

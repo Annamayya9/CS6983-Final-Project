@@ -32,6 +32,8 @@ class Heuristics(unittest.TestCase):
         self.assertEqual(sponsorship_answer('Do you need sponsorship?', 'No, I will not need sponsorship.'), 'no')
         self.assertEqual(sponsorship_answer('', 'One change: I will need sponsorship after all, so set sponsorship to Yes.'), 'yes')
         self.assertIsNone(sponsorship_answer('May I check consent?', 'Please leave the consent box unchecked.'))
+        self.assertIsNone(sponsorship_answer('Sponsorship: No. Draft saved.', 'Please save it as a draft; do not submit.'))
+        self.assertEqual(sponsorship_answer('Do you need sponsorship?', 'No.'), 'no')
 
 
 class ScriptedRuns(unittest.TestCase):

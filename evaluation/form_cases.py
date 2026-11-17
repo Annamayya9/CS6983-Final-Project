@@ -70,8 +70,8 @@ def mentions(phrase, text):
 def sponsorship_answer(question, reply):
     """Deterministic parse of a user-supplied sponsorship fact; None when the reply is not about it."""
     sentences = [s for s in re.split(r'(?<=[.!?\n])\s+', reply) if 'sponsor' in s.lower()]
-    if not sentences and 'sponsor' in question.lower():
-        sentences = [reply]
+    if not sentences and 'sponsor' in question.lower() and re.match(r"\s*(no|yes)\b", reply, re.I):
+        sentences = [reply]  # a bare yes/no answer to a sponsorship question
     text = ' '.join(sentences).lower()
     if not text:
         return None

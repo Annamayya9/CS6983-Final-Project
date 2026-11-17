@@ -10,6 +10,7 @@
   ],
   "not_counted": {
     "pilot/": "Two pilots (seeds 297, 298) under the frozen protocol, run before the selected formal run.",
-    "pilot_design_iterations/": "Two pilots (seed 300) of earlier designs: email correction only, then the added review-time sponsorship change with the earlier simulator prompt."
+    "pilot_design_iterations/": "Two pilots (seed 300) of earlier designs: email correction only, then the added review-time sponsorship change with the earlier simulator prompt.",
+    "earlier_single_run/": "First selected formal run (seed 301), from before the team switched to five runs; it ran on an older runtime (see runtime_snapshot_formal_20261116), so it is kept separate from the five-run batch."
   }
 }

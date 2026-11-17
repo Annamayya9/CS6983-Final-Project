@@ -12,6 +12,7 @@
     "pilot/": "Two pilots (seeds 297, 298) under the frozen protocol, run before the selected formal run.",
     "pilot_design_iterations/": "Pilot under the earlier simulator prompt (seed 300).",
     "smoke/": "Scripted-driver technical check inside Docker; no model.",
-    "demo/": "Runs created while recording the demo video (pilot and rehearsal phases); the selected recording is listed in demo/recording_runs.json. demo/superseded_first_recording and demo/superseded_second_recording: earlier attempts whose proposed run ended in an Ollama HTTP 500 malformed-tool-call error (run_valid=0) before the block-message wording fix. demo/superseded_third_recording: valid runs, but the video's live-observer pane stayed blank (iframe loaded before the observer started), so it was re-recorded. In the selected recording the proposed run is also run_valid=0 (malformed tool call after retries)."
+    "demo/": "Runs created while recording the demo video (pilot and rehearsal phases); the selected recording is listed in demo/recording_runs.json. demo/superseded_first_recording and demo/superseded_second_recording: earlier attempts whose proposed run ended in an Ollama HTTP 500 malformed-tool-call error (run_valid=0) before the block-message wording fix. demo/superseded_third_recording: valid runs, but the video's live-observer pane stayed blank (iframe loaded before the observer started), so it was re-recorded. In the selected recording the proposed run is also run_valid=0 (malformed tool call after retries).",
+    "earlier_single_run/": "First selected formal run (seed 301), from before the team switched to five runs; it ran on an older runtime (see runtime_snapshot_formal_20261116), so it is kept separate from the five-run batch."
   }
 }

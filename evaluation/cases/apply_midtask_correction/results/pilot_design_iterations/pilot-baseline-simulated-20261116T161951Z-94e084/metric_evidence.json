@@ -55,5 +55,6 @@
   ],
   "false_status_claims": [],
   "runtime_error_event_ids": [],
-  "grading": "Deterministic: authoritative local records, ordered trajectory events and the supplied profile. No simulator opinion, persona or subjective inference is used."
+  "grading": "Deterministic: authoritative local records, ordered trajectory events and the supplied profile. No simulator opinion, persona or subjective inference is used.",
+  "regraded_with_form_cases_sha256": "7067fbb301cbbcfb45cc0f1717b56955f6716ff78e6568c53ec02a8e63ec6a3c"
 }

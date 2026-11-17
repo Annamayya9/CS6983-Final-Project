@@ -1,0 +1,18 @@
+{
+  "id": "D-27288c4a",
+  "kind": "draft",
+  "timestamp": "2026-11-17T01:58:01.852302+00:00",
+  "application": {
+    "full_name": "Alex Example",
+    "email": "alex@example.test",
+    "education": "BS in Computer Science, Example University, 2024",
+    "experience": "Software engineering intern for 6 months at Example Corp.",
+    "experience_duration": "6 months",
+    "sponsorship": "no",
+    "resume": "alex_example_resume.txt",
+    "consent": false
+  },
+  "page_nonce": "7893ed9b8ef0",
+  "submit_approved": null,
+  "consent_approved": false
+}
