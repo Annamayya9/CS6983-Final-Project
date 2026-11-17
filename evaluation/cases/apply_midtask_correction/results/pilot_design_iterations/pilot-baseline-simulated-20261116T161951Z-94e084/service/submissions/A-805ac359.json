@@ -1,0 +1,18 @@
+{
+  "id": "A-805ac359",
+  "kind": "submission",
+  "timestamp": "2026-11-16T16:20:45.195120+00:00",
+  "application": {
+    "full_name": "Alex Example",
+    "email": "alex@example.test",
+    "education": "BS in Computer Science, Example University, 2024",
+    "experience": "Software engineering intern for 6 months at Example Corp.",
+    "experience_duration": "6 months",
+    "sponsorship": "yes",
+    "resume": "alex_example_resume.txt",
+    "consent": true
+  },
+  "page_nonce": "643682879351",
+  "submit_approved": true,
+  "consent_approved": true
+}

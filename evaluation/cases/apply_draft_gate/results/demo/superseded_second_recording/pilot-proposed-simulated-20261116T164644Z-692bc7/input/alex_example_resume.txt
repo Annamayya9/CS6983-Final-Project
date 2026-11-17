@@ -1,0 +1,4 @@
+Alex Example
+alex@example.test
+BS in Computer Science, Example University, 2024
+Software engineering intern, Example Corp, 6 months

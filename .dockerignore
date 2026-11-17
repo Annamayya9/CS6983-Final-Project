@@ -1,0 +1,12 @@
+.git
+.venv
+**/__pycache__
+runs
+submissions
+experiments
+phase3*
+evaluation/cases/*/results
+evaluation/cases/resume_review
+*.png
+*.webm
+*.mp4

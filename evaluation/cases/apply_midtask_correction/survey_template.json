@@ -1,0 +1,13 @@
+{
+  "schema_version": "team-core-v1",
+  "respondent_type": "human",
+  "run_id": "REPLACE_AFTER_HUMAN_SESSION",
+  "items": {
+    "engagement": {"scale": [1, 7], "question": "I was engaged in completing this task.", "anchors": ["Strongly disagree", "Strongly agree"]},
+    "cognitive_load": {"scale": [1, 7], "question": "How mentally demanding was this task?", "anchors": ["Very low", "Very high"]},
+    "perceived_controllability": {"scale": [1, 7], "question": "I could understand, change, and stop the agent's actions.", "anchors": ["Strongly disagree", "Strongly agree"]}
+  },
+  "answers": {"engagement": null, "cognitive_load": null, "perceived_controllability": null},
+  "status": "template_only_not_collected",
+  "how_to_collect": "python record_human_feedback.py --run <run folder>  (after the task ends, before showing any results)"
+}
