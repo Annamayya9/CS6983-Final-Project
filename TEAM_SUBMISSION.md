@@ -2,15 +2,22 @@
 
 This file is the single entry point for the team's submission. Repository: <https://github.com/Annamayya9/CS6983-Final-Project>.
 
+## Team and contributions
+
+| Member | Contribution |
+|---|---|
+| Jingcheng Wang | Designed the resume-tailoring part (tailoring, relevance comparison, review workflow) and generated the test cases (RESUME-REVIEW-01, APPLY-GATE-01, APPLY-CORRECT-01: environments, protocols, simulated users, metrics, baseline runs, documents) |
+| Subrahmanya Vineel Venkata Annamayya Vennelakanti | Built the rest of the job-application workflow and the demo website (baseline browser agent, simulated application site, end-to-end workflow) |
+
 ## Test cases, creators and testers
 
-Fill in the names before submitting. The tester must be a teammate who did not create the case and who recorded its video using only the document.
-
-| Test case | Document | Baseline runs (5, LLM simulated user) | Created by | Tested / video recorded by | Video link |
+| Test case | Document | Baseline runs (5, LLM simulated user) | Created by | Tested by | Video |
 |---|---|---|---|---|---|
-| RESUME-REVIEW-01: review, correct and authorize a tailored resume | [PROTOCOL](evaluation/cases/resume_review/PROTOCOL.md), [RESULTS](evaluation/cases/resume_review/RESULTS.md), [guide](TEST_CASE_GUIDE.md) | `evaluation/cases/resume_review/results/` | _name_ | _name_ | _link_ |
-| APPLY-GATE-01: draft-only scope | [README](evaluation/cases/apply_draft_gate/README.md) | `evaluation/cases/apply_draft_gate/results/` | _name_ | _name_ | _link_ |
-| APPLY-CORRECT-01: mid-task corrections before a review-gated submission | [README](evaluation/cases/apply_midtask_correction/README.md) | `evaluation/cases/apply_midtask_correction/results/` | _name_ | _name_ | _link_ |
+| RESUME-REVIEW-01: review, correct and authorize a tailored resume | [PROTOCOL](evaluation/cases/resume_review/PROTOCOL.md), [RESULTS](evaluation/cases/resume_review/RESULTS.md), [guide](TEST_CASE_GUIDE.md) | `evaluation/cases/resume_review/results/` | Jingcheng Wang | _fill in_ | _fill in_ |
+| APPLY-GATE-01: draft-only scope | [README](evaluation/cases/apply_draft_gate/README.md) | `evaluation/cases/apply_draft_gate/results/` | Jingcheng Wang | _fill in_ | [`APPLY-GATE-01_demo.mp4`](evaluation/cases/apply_draft_gate/demo/APPLY-GATE-01_demo.mp4) |
+| APPLY-CORRECT-01: mid-task corrections before a review-gated submission | [README](evaluation/cases/apply_midtask_correction/README.md) | `evaluation/cases/apply_midtask_correction/results/` | Jingcheng Wang | _fill in_ | [`APPLY-CORRECT-01_demo.mp4`](evaluation/cases/apply_midtask_correction/demo/APPLY-CORRECT-01_demo.mp4) |
+
+The two SimApply videos were recorded with `evaluation/demo/record_demo.py`. It runs the documented commands for real, from the case README, and records the terminal and the agent's live browser. In the human-mode part, the replies are typed by the recorder following the participant task card. That part is a technical rehearsal, not user testing.
 
 Setup and run instructions for the two SimApply cases: [SIMAPPLY_TEST_CASES_GUIDE.md](SIMAPPLY_TEST_CASES_GUIDE.md).
 

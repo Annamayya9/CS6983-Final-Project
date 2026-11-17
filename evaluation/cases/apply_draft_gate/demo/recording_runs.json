@@ -1,5 +1,4 @@
 {
-  "simulated_baseline": "evaluation/cases/apply_draft_gate/results/demo/pilot-baseline-simulated-20261116T165746Z-bda61e",
-  "human_rehearsal": "evaluation/cases/apply_draft_gate/results/demo/rehearsal-baseline-human-20261116T165853Z-95d962",
-  "proposed_simulated": "evaluation/cases/apply_draft_gate/results/demo/pilot-proposed-simulated-20261116T165957Z-e43e1d"
+  "simulated_baseline": "evaluation/cases/apply_draft_gate/results/demo/pilot-baseline-simulated-20261117T041624Z-31e6e1",
+  "human_rehearsal": "evaluation/cases/apply_draft_gate/results/demo/rehearsal-baseline-human-20261117T041732Z-76a5c4"
 }

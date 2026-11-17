@@ -34,7 +34,7 @@ Both cases share the mock job-application site, the baseline agent (the original
 | `trajectory.json`, `reward.json`, `config.json` per run | every folder under `results/` | same |
 | External systems, and which are mocked | [README §3, external systems](evaluation/cases/apply_draft_gate/README.md#external-systems-and-mocking) | same |
 | Other cases tried and why they were rejected | README §9 | README §9 |
-| Video | [`evaluation/cases/apply_draft_gate/demo/APPLY-GATE-01_demo.mp4`](evaluation/cases/apply_draft_gate/demo/APPLY-GATE-01_demo.mp4) (reference recording; a teammate must record the official one, see §6 below) | not recorded; see its README §10 |
+| Video | [`APPLY-GATE-01_demo.mp4`](evaluation/cases/apply_draft_gate/demo/APPLY-GATE-01_demo.mp4) (2:40); see README §11 | [`APPLY-CORRECT-01_demo.mp4`](evaluation/cases/apply_midtask_correction/demo/APPLY-CORRECT-01_demo.mp4) (3:12); see README §10 |
 
 **Baseline runs.** Five formal runs per case are recorded (`--trials 5 --seed 301`, one batch each). The first formal attempt of each case exposed a simulated-user defect. It is kept, with reasons, in `results/excluded_calibration/` and `results/EXCLUSIONS.json`, alongside the pilots.
 

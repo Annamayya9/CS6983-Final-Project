@@ -313,33 +313,17 @@ Evidence so far: the offline test `tests/test_form_cases.py` checks the gate (co
 
 ## 11. Demo video
 
-[`demo/APPLY-GATE-01_demo.mp4`](demo/APPLY-GATE-01_demo.mp4) is a screen recording of a real session made with `evaluation/demo/record_demo.py`. Every command shown is actually executed with live output, and the right pane is the agent's live browser. It shows:
+[`demo/APPLY-GATE-01_demo.mp4`](demo/APPLY-GATE-01_demo.mp4) (2:40) was recorded with `evaluation/demo/record_demo.py --case apply_draft_gate`, which really runs every command in section 2, with live output. The right pane is the agent's live browser and the shared dialogue. The video shows:
+1. setup;
+2. reset and the offline check;
+3. a Mode A baseline run;
+4. the output files and a timeline with breakdowns flagged;
+5. a Mode B walkthrough;
+6. the survey and interview step.
 
-1. Setup.
-2. Reset and the offline check.
-3. A Mode A baseline run with the breakdowns as they happen.
-4. The output files and timeline.
-5. A Mode B walkthrough.
-6. The survey and interview step.
-7. A proposed-condition run.
+The Mode B replies are typed by the recorder following the task card: a labelled technical rehearsal, not participant data.
 
-In the Mode B part the replies are typed by the recorder following the task card. It is a labelled **technical rehearsal**, not participant data. `demo/recording_runs.json` lists the run folders it created.
-
-In this recording:
-
-- The baseline simulated run and the human-mode rehearsal both show **B1** (consent checked without approval) and **B2** (sponsorship guessed). The user's correction held in both.
-- **B4** (false "draft saved" claim) did not occur in this recording, though it did in the recorded formal run.
-- The optional proposed run (step 7) ended with an Ollama HTTP 500 malformed-tool-call error after the consent block (`run_valid=0`), so it does not demonstrate the proposed path. Section 8 describes a clean proposed run.
-
-The course requires the reproducibility video to be recorded by a teammate who did not build the case, using only this document. **Teammate checklist:**
-
-1. Record your screen from a fresh clone.
-2. Follow section 2 top to bottom.
-3. Run one Mode A baseline run and point out B1–B4 in the browser and in the `form_timeline.py` output.
-4. Start Mode B and play Alex for a few turns following the task card.
-5. Show `record_human_feedback.py --preview`.
-
-If a breakdown does not occur in your run, say so; section 7 explains what we expect.
+In this recording, the Mode A run shows **B1** (consent checked without approval), **B2** (sponsorship guessed) and **B4** (false "draft saved" claim). The Mode B rehearsal shows B1 and B2. `demo/recording_runs.json` lists the run folders. Earlier recording attempts are kept in `results/demo/superseded_*`.
 
 ## 12. Troubleshooting
 

@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><title>SimApply observer</title>
+<style>body{font:14px system-ui;margin:0;display:flex;gap:12px;padding:12px;background:#f4f6f8;color:#17212c}
+#shot{flex:1.2;background:#fff;border:1px solid #ccd;border-radius:6px;overflow:auto;max-height:96vh}#shot img{width:100%}
+#side{flex:1;display:flex;flex-direction:column;gap:8px;max-height:96vh}#dlg{flex:1;overflow:auto;background:#fff;border:1px solid #ccd;border-radius:6px;padding:8px}
+.m{margin:6px 0;padding:6px 8px;border-radius:6px;white-space:pre-wrap}.agent{background:#e8f0fe}.user{background:#e6f4ea}.environment{background:#fff4e0}
+#q{background:#fff4e0;border:1px solid #e0b252;border-radius:6px;padding:8px;white-space:pre-wrap}</style></head>
+<body><div id="shot"><img id="img" alt="Agent browser"></div><div id="side"><b id="st"></b><div id="q"></div><div id="dlg"></div></div>
+<script>async function tick(){try{const s=await (await fetch('state.json?'+Date.now())).json();
+document.getElementById('img').src='live.png?'+(s.updated||'');document.getElementById('st').textContent='Run status: '+s.status;
+const q=document.getElementById('q');q.style.display=s.question?'block':'none';q.textContent=s.question?('Waiting for the user (type in the terminal):\n'+s.question):'';
+const d=document.getElementById('dlg');d.innerHTML='';for(const m of s.dialogue){const e=document.createElement('div');e.className='m '+m.role;e.textContent=m.role+': '+m.content;d.appendChild(e);}d.scrollTop=d.scrollHeight;}catch(e){}}
+setInterval(tick,800);tick();</script></body></html>
