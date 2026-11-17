@@ -128,3 +128,6 @@ python run_resume_study.py --mode simulated --condition proposed --phase smoke -
 ```
 
 This first check needs no Ollama. Historical results remain dated snapshots; see the [v4 update report in Chinese](UPDATE_REPORT_ZH.md) for new validation, including failed diagnostic runs, and the guide for LLM and human modes. Close Ollama processes after model runs; keep the installed models.
+## Two-site study cases
+
+See [TWO_SITE_STUDY.md](TWO_SITE_STUDY.md) for the permissions and correction cases, user modes, metrics, and recorded trials. These use the two-site baseline and are separate from RESUME-REVIEW-01.

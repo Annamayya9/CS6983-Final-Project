@@ -1,0 +1,6 @@
+{
+  "human_only": true,
+  "engagement": {"question": "I was engaged in completing this task.", "scale": "1 strongly disagree to 7 strongly agree", "answer": null},
+  "cognitive_load": {"question": "How mentally demanding was this task?", "scale": "1 very low to 7 very high", "answer": null},
+  "perceived_controllability": {"question": "I could understand, change, and stop the agent's actions.", "scale": "1 strongly disagree to 7 strongly agree", "answer": null}
+}
