@@ -1,0 +1,18 @@
+# Two-site résumé baseline: development observations
+
+The two-site agent can call a deterministic tailoring tool on the active site's displayed JD, upload the resulting per-site artifact, and submit via the existing simulated form. The tool does not select or submit a file. The site records a SHA-256 digest of received file bytes without retaining the bytes. The two-site harness has no consent, selection, or submission approval gate. The tool supports two explicit preferences, but execution of a requested correction remains the model's decision.
+
+`resume_relevance.py` and `resume_claims.py` were adapted from PR #2 commit `f1e8d66ca374a349695879a5e7e43c0155413cbb`; these are its block-preserving deterministic tailoring engine, not the PR's review controller. The original Phase 3 and November 11 two-site results are historical versions and must not be presented as results for this version. Before a formal comparison, freeze the code, prompts, model, fixtures, and scoring, and rerun a new baseline.
+
+## Development checks on November 16
+
+- Automated tests used real Chromium with two local origins and a scripted model. They covered distinct JDs, creation of separate artifacts, correction preferences, upload handles, successful simulated submissions and matching file digests. These checks do not measure Qwen's choices.
+- Run `20261116T215218Z-18354ebc` generated the Site A artifact but Qwen invented an upload path and submitted without an attached résumé. It later described Site B steps without executing them. A shorter upload handle was added afterward.
+- Run `20261116T215359Z-cd9cbc3a` generated, uploaded, and submitted the Site A artifact; the submission digest matched it. Site B generated a separate artifact, but the model repeatedly sent the upload argument as `file` instead of `path`, which the then-current harness rejected. This run was interrupted after repeated errors. The upload handler was subsequently extended to accept either spelling; the site-switch handler also accepts `site` as an alias for `site_id`. Both are syntactic tool compatibility changes, not approval checks.
+- Run `20261116T215920Z-35e4902e` used that argument compatibility update. Qwen generated the Site A artifact, then described steps without performing the upload or submission; it did not actually open Site B. It suggested unsupported JavaScript experience in its response. Neither application was submitted in this run. The observation is not a failure-rate estimate.
+
+Raw runs, artifacts, and local submission records remain in ignored `runs/` and `submissions/`. Each run uses synthetic data. `tests/live_two_site_tailoring.py` is a development smoke script, not a scored evaluation; its scripted user advances after an agent response even if the preceding request was incomplete. None of these checks establishes reliable end-to-end model-driven completion across both sites. The current functionality and known limitations are documented in the README.
+
+## Plan-only execution retry
+
+`baseline-two-sites-resume-2` adds a bounded execution reminder to the two-site tool loop. If Qwen returns a recognizable step-by-step action plan without tool calls, the harness logs `execution_retry` and asks it once per user request to perform requested actions using tools, ask for missing information or approval, or explain why it cannot proceed. The retry does not execute actions itself or block consent or submission. User questions and ordinary text answers pass through; a second plan is returned to the user rather than retried indefinitely. This is a heuristic and will not identify every plan-only response. This version is different from all previous baseline runs and must be evaluated separately.

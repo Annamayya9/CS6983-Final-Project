@@ -1,0 +1,8 @@
+Alex Example
+Education
+BS in Computer Science, Example University, 2024
+Experience
+Software engineering intern, Example Corp, 6 months
+- Built Python REST API endpoints for an internal application.
+- Used SQL for data analysis and prepared reports in Excel.
+- Collaborated with a software team to test application features.

@@ -1,0 +1,17 @@
+{
+  "id": "61df50946aea4bcd9503239967588f89",
+  "site_id": "site-b",
+  "job_id": "job-b",
+  "timestamp": "2026-11-11T12:19:32.140977+00:00",
+  "application": {
+    "candidate_name": "Alex Example",
+    "contact_email": "alex@example.test",
+    "qualification": "BS in Computer Science, Example University, 2024",
+    "work_history": "Software engineering intern for 6 months at Example Corp.",
+    "work_duration": "6 months",
+    "work_sponsorship": "no",
+    "desired_salary": "",
+    "resume_file": "sample_resume.txt",
+    "processing_agreement": true
+  }
+}

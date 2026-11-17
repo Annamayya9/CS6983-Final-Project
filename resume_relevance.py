@@ -215,7 +215,7 @@ def write_artifacts(report, directory):
     directory.mkdir(parents=True, exist_ok=True)
     for name, text in [('original_resume.txt', report['source_text']), ('tailored_resume.txt', report['tailored_text']),
                        ('job_description.txt', report['job_description']), ('comparison.html', comparison_html(report))]:
-        (directory / name).write_text(text, encoding='utf-8')
+        (directory / name).write_bytes(text.encode('utf-8'))
     (directory / 'comparison.json').write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')
     (directory / 'changes.diff').write_text(''.join(difflib.unified_diff(report['source_text'].splitlines(True),
                                             report['tailored_text'].splitlines(True), 'original_resume.txt', 'tailored_resume.txt')), encoding='utf-8')
@@ -236,3 +236,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
