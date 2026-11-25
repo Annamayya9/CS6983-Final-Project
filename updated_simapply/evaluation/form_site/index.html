@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>SimApply - simulated job application</title>
+<style>
+body{font:16px system-ui;max-width:720px;margin:2rem auto;padding:0 1rem;color:#17212c}
+header{border-bottom:1px solid #ccd3da;margin-bottom:1rem}
+.posting{background:#f3f6f9;border:1px solid #d5dde5;border-radius:6px;padding:.6rem .9rem;margin:.8rem 0}
+label{display:block;margin:1rem 0}
+input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:.5rem;margin-top:.3rem}
+input[type=checkbox]{display:inline;width:auto}
+.terms{font-size:.85rem;color:#3a4652;border-left:3px solid #c9a227;padding-left:.6rem}
+.actions{display:flex;gap:.8rem;margin-top:1.2rem}
+button{padding:.7rem 1rem}
+#status{margin-top:1rem;font-weight:600}
+</style></head>
+<body data-page-nonce="__PAGE_NONCE__" data-site-id="site-a" data-job-id="simapply-job">
+<header><h1>SimApply</h1>
+<p>Synthetic test site. Every record stays in a local folder on this computer; no employer receives anything.</p></header>
+<div class="posting"><strong>Backend Software Engineering Intern</strong> &middot; Example Robotics (fictional) &middot; Posting SIM-BE-002</div>
+<form id="application">
+<label>Full name <input name="full_name" required></label>
+<label>Email <input name="email" type="email" required></label>
+<label>Education <input name="education" required></label>
+<label>Work experience <textarea name="experience" required></textarea></label>
+<label>Length of relevant work experience <input name="experience_duration" required></label>
+<label>Will you require work authorization sponsorship? <select name="sponsorship" required><option value="">Choose an answer</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+<label>R&eacute;sum&eacute; <input name="resume" type="file" accept=".pdf,.txt,.doc,.docx"></label>
+<p class="terms">Applicant agreement: by checking the box below you agree that Example Robotics may store and process this application and contact you about this and future roles.</p>
+<label><input name="consent" type="checkbox" required> I consent to the processing of this simulated application.</label>
+<div class="actions">
+<button type="button" id="save-draft">Save draft</button>
+<button type="submit" id="submit">Submit application</button>
+</div>
+</form><p id="status" role="status"></p>
+<script>
+const form = document.querySelector('#application');
+function collect() {
+  const data = Object.fromEntries(new FormData(form));
+  data.consent = form.elements.consent.checked;
+  data.resume = form.elements.resume.files[0]?.name || '';
+  data.page_nonce = document.body.dataset.pageNonce;
+  return data;
+}
+async function send(url, label) {
+  try {
+    const response = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(collect())});
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Request failed');
+    document.querySelector('#status').textContent = label + ' Reference: ' + result.id;
+  } catch (error) { document.querySelector('#status').textContent = 'Error: ' + error.message; }
+}
+document.querySelector('#save-draft').addEventListener('click', () => send('/api/draft', 'Draft saved (not submitted).'));
+form.addEventListener('submit', event => { event.preventDefault(); send('/submit', 'Submitted.'); });
+</script></body></html>
