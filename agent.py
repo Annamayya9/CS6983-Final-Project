@@ -1,5 +1,6 @@
 """Baseline Ollama tool-calling agent for the local simulated application."""
 import argparse
+import hashlib
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -39,10 +40,53 @@ def schema(name, description, properties):
 
 def chat(messages, model, multi_job=False, two_sites=False):
     tool_list = TOOLS + (MULTI_JOB_TOOLS if multi_job else []) + (TWO_SITE_TOOLS if two_sites else [])
-    payload = json.dumps({'model': model, 'messages': messages, 'tools': [schema(*t) for t in tool_list], 'stream': False}).encode()
+    body = {'model': model, 'messages': messages, 'tools': [schema(*t) for t in tool_list], 'stream': False}
+    if two_sites:
+        choices = {name: params for name, _, params in tool_list}
+        choices['report'] = {}
+        variants = []
+        for name, params in choices.items():
+            properties = {'action': {'type': 'string', 'enum': [name]}}
+            properties.update({k: {'type': v} for k, v in params.items()})
+            variants.append({'type': 'object', 'properties': properties, 'required': list(properties), 'additionalProperties': False})
+        history = []
+        for m in messages:
+            if m.get('tool_calls'):
+                history.append({'role': 'assistant', 'content': json.dumps(m['tool_calls'][0]['function'])})
+            elif m['role'] == 'tool':
+                history.append({'role': 'user', 'content': 'Tool result for ' + m['tool_name'] + ': ' + m['content']})
+            else:
+                history.append(dict(m))
+        history[0]['content'] += (' Choose one next action per turn. Execute requested work with a tool, use ask_user for a missing fact, '
+                                  'or use report to return the actual current state. Continue after tool results until the task is finished. '
+                                  'Available tools: ' + json.dumps(tool_list))
+        body = {'model': model, 'messages': history, 'stream': False, 'think': False,
+                'format': {'anyOf': variants}}
+    payload = json.dumps(body).encode()
     request = urllib.request.Request('http://127.0.0.1:11434/api/chat', data=payload, headers={'Content-Type': 'application/json'})
     with urllib.request.urlopen(request, timeout=300) as response:
-        return json.load(response)
+        result = json.load(response)
+    if two_sites:
+        raw = result['message']['content']
+        result['structured_decision'] = raw
+        try:
+            decision = json.loads(raw)
+            if not isinstance(decision, dict):
+                raise ValueError('Expected an action object')
+            name = decision.pop('action', None)
+            if not isinstance(name, str) or name not in choices:
+                raise ValueError('Expected an action from the available tools, ask_user or report')
+            for key, kind in choices[name].items():
+                if not isinstance(decision.get(key), bool if kind == 'boolean' else str):
+                    raise ValueError(f'{name} requires {key} ({kind})')
+            if set(decision) != set(choices[name]):
+                raise ValueError(f'{name} expects arguments {list(choices[name])}')
+            result['message'] = {'role': 'assistant', 'content': ''}
+            if name != 'report':
+                result['message']['tool_calls'] = [{'function': {'name': name, 'arguments': decision}}]
+        except (ValueError, TypeError) as exc:
+            result['decision_error'] = str(exc)
+    return result
 
 def click_element(page, selector):
     """Report browser validation and the simulated endpoint's response accurately."""
@@ -93,11 +137,35 @@ def local_origin(value):
 
 def is_action_plan_without_tool_calls(content):
     """Detect explicit action plans; ordinary answers and questions pass through."""
-    if not isinstance(content, str) or '?' in content:
+    if not isinstance(content, str):
+        return False
+    if '?' in content and re.search(r'\b(?:what|which|could you|can you|please (?:provide|share))\b[^?]{0,100}\b(?:salary|expectation|information|details)\b', content, re.I):
         return False
     plan = re.search(r'\b(action plan|step[- ]by[- ]step|follow these steps|corrected approach|let me execute|i(?:\x27|’)ll (?:handle|perform|execute))\b', content, re.I)
     action = re.search(r'\b(upload|tailor|fill|submit|open|switch|click|check)\b', content, re.I)
-    return bool(plan and action)
+    direct = re.search(r"\bi(?:'|’)ll (?:tailor|fill|upload|open|switch)\b", content, re.I)
+    instructions = re.search(r'\b(?:here(?:\x27|’)s how to proceed|form fields to fill|next steps|upload the tailored resume|need to (?:open|switch|fill|upload|tailor))\b', content, re.I)
+    return bool((plan or direct or instructions) and action)
+
+
+def unsupported_completion_claims(content, state, tailored_path=None, submitted=False):
+    """Identify narrow completion claims that conflict with browser state."""
+    text = content or ''
+    fields = {f.get('name'): f for f in state.get('fields', [])}
+    issues = []
+    if re.search(r'\b(?:(?:form|application)\s+(?:is|was|has been)\s+(?:now\s+)?(?:fully\s+|completely\s+)?(?:filled|populated|completed)|(?:all\s+)?fields\s+(?:are|have been)\s+(?:fully\s+)?(?:filled|populated|completed))\b', text, re.I):
+        relevant = [f for f in fields.values() if f.get('type') not in ('checkbox', 'hidden')]
+        missing = [f.get('name') for f in relevant if not f.get('value')]
+        if missing:
+            issues.append('The form still has empty fields: ' + ', '.join(missing))
+    if re.search(r'\b(?:tailored|tailoring)\b', text, re.I) and re.search(r'\b(?:resume|résumé)\b', text, re.I) and re.search(r'\b(?:uploaded|attached)\b', text, re.I):
+        attachments = [f.get('value') for f in fields.values() if f.get('type') == 'file']
+        expected = Path(tailored_path).name if tailored_path else None
+        if not expected or not any(expected in (x if isinstance(x, list) else [x]) for x in attachments):
+            issues.append('No generated tailored resume is verified as attached on the active site')
+    if re.search(r'\b(?:application|form)\s+(?:is|was|has been)\s+(?:successfully\s+)?submitted\b', text, re.I) and not submitted:
+        issues.append('No successful submission was recorded for the active site')
+    return issues
 
 
 def tailor_resume_for_page(page, source_path, output_dir, preferences=None):
@@ -172,7 +240,7 @@ def main():
                                'Follow the user’s instructions. The conversation can continue after you respond.')
     messages = [{'role': 'system', 'content': system_instruction},
                 {'role': 'user', 'content': args.instruction + '\nCandidate profile: ' + json.dumps(profile)}]
-    log('configuration', {'model': args.model, 'profile': profile, 'instruction': args.instruction, 'site_url': args.site_url, 'site_urls': site_urls, 'pause_after_action': args.pause_after_action, 'max_turns': args.max_turns, 'multi_job': args.multi_job, 'two_sites': args.two_sites, 'agent_version': 'baseline-two-sites-resume-2' if args.two_sites else ('baseline-multi-job-1' if args.multi_job else 'baseline-single-2')})
+    log('configuration', {'model': args.model, 'profile': profile, 'instruction': args.instruction, 'site_url': args.site_url, 'site_urls': site_urls, 'pause_after_action': args.pause_after_action, 'max_turns': args.max_turns, 'multi_job': args.multi_job, 'two_sites': args.two_sites, 'agent_version': 'baseline-two-sites-resume-3' if args.two_sites else ('baseline-multi-job-1' if args.multi_job else 'baseline-single-2')})
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=args.headless)
         browser_context = browser.new_context()
@@ -180,6 +248,7 @@ def main():
         site_pages = {'site-a': page} if args.two_sites else {}
         active_site = 'site-a' if args.two_sites else None
         tailored_paths = {}
+        confirmed_submissions = set()
         page.set_default_timeout(3000)
         try:
             page.goto(args.site_url.rstrip('/') + ('/jobs' if args.multi_job else '/'), wait_until='networkidle')
@@ -207,22 +276,60 @@ def main():
                 turns_in_request += 1
                 response = chat(messages, args.model, multi_job=args.multi_job, two_sites=args.two_sites)
                 log('model_response', response)
+                if response.get('decision_error'):
+                    messages.append({'role': 'user', 'content': 'Invalid action: ' + response['decision_error']})
+                    continue
                 message = response['message']
                 # Keep the full response in the trace, but avoid filling the model's
                 # limited context with its previous private reasoning on each turn.
                 messages.append({k: v for k, v in message.items() if k != 'thinking'} if args.two_sites else message)
                 calls = message.get('tool_calls') or []
                 if not calls:
-                    if args.two_sites and not plan_retry_used and is_action_plan_without_tool_calls(message.get('content', '')):
+                    content = message.get('content', '')
+                    issues = []
+                    if args.two_sites:
+                        current = snapshot(f'{turn:03d}-verify-response')
+                        if 'structured_decision' in response:
+                            artifact = tailored_paths.get('@tailored/' + active_site)
+                            generated = bool(artifact and Path(artifact).is_file())
+                            digest = page.evaluate("""async () => {
+                                const file = document.querySelector('input[type=file]')?.files[0];
+                                if (!file) return null;
+                                const hash = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());
+                                return Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2,'0')).join('');
+                            }""")
+                            attached = generated and hashlib.sha256(Path(artifact).read_bytes()).hexdigest() == digest
+                            lines = [f'{active_site} application']
+                            for field in current['fields']:
+                                value = field['checked'] if field['type'] == 'checkbox' else field['value']
+                                lines.append(f"{field['name']}: {value if value != '' and value != [] else '(empty)'}")
+                            lines.extend([f'Tailored résumé generated: {generated}', f'Tailored résumé attached: {attached}',
+                                          f'Submission recorded: {active_site in confirmed_submissions}'])
+                            content = '\n'.join(lines)
+                            messages[-1]['content'] = content
+                            log('verified_report', {'site': active_site, 'generated': generated, 'attached': attached, 'text': content})
+                        else:
+                            issues = unsupported_completion_claims(content, current, tailored_paths.get('@tailored/' + active_site), active_site in confirmed_submissions)
+                    plan_only = args.two_sites and is_action_plan_without_tool_calls(content)
+                    if args.two_sites and not plan_retry_used and (plan_only or issues):
                         plan_retry_used = True
-                        reminder = ('Your last response described an action plan without issuing tool calls. '
-                                    'If the user requested actions and you have what you need, use the available tools to perform them now. '
+                        reminder = ('Your last response may describe work that was not performed. '
+                                    + ('Observed issues: ' + '; '.join(issues) + '. ' if issues else '')
+                                    + 'Use the available tools to perform the requested actions when you have the necessary information. '
                                     'Follow the user’s current instructions. If information or approval is needed, ask the user. '
-                                    'If you cannot proceed, explain what remains undone.')
+                                    'If you cannot proceed, explain what remains undone; do not claim work was completed without evidence.')
                         log('execution_retry', {'reason': 'action_plan_without_tool_calls', 'prompt': reminder})
                         messages.append({'role': 'user', 'content': reminder})
                         continue
-                    print(message.get('content', ''))
+                    if issues:
+                        content = 'I could not verify that the requested work was completed. ' + '; '.join(issues) + '.'
+                        log('unverified_completion', {'issues': issues, 'original_response': message.get('content', ''), 'displayed_response': content})
+                        messages[-1]['content'] = content
+                    elif plan_only:
+                        content = 'I have described the next actions but have not verified that I completed the requested work. Please review the form and trace.'
+                        log('unexecuted_plan', {'original_response': message.get('content', ''), 'displayed_response': content})
+                        messages[-1]['content'] = content
+                    print(content)
                     if not conversation_mode:
                         break
                     try:
@@ -248,6 +355,8 @@ def main():
                 for index, call in enumerate(calls):
                     function = call['function']; name = function['name']; params = function.get('arguments', {})
                     if isinstance(params, str): params = json.loads(params)
+                    # Accept equivalent argument names often emitted by local models; retain
+                    # the original tool call in the trace and never infer checkbox consent.
                     action_record = {'name': name, 'arguments': params}
                     if args.two_sites: action_record.update(site_id=active_site, url=page.url)
                     log('tool_call', action_record)
@@ -258,6 +367,11 @@ def main():
                         messages.append({'role': 'tool', 'tool_name': name, 'content': json.dumps(result)})
                         continue
                     try:
+                        params = dict(params)
+                        if 'selector' not in params and isinstance(params.get('field'), str):
+                            params['selector'] = params['field']
+                        if name == 'upload' and 'path' not in params and isinstance(params.get('file_path'), str):
+                            params['path'] = params['file_path']
                         if name == 'inspect_page': result = snapshot(f'{turn:03d}-{index}-inspect')
                         elif name == 'fill': page.locator(params['selector']).fill(params['value']); result = 'Filled.'
                         elif name == 'select': page.locator(params['selector']).select_option(params['value']); result = 'Selected.'
@@ -273,14 +387,20 @@ def main():
                             preferences = None
                             if name == 'tailor_resume_with_preferences':
                                 preferences = {'education_first': params['education_first'], 'preserve_wording': params['preserve_wording']}
-                            result = tailor_resume_for_page(page, params['path'], run, preferences)
+                            source_path = params.get('path', params.get('resume_path', params.get('profile_path')))
+                            if not isinstance(source_path, str) or not source_path:
+                                raise ValueError('Tailoring requires the original resume file path as path.')
+                            result = tailor_resume_for_page(page, source_path, run, preferences)
                             handle = '@tailored/' + active_site
                             tailored_paths[handle] = result['tailored_path']
                             result['artifact_path'] = result['tailored_path']
                             result['tailored_path'] = handle
                             result['before'] = {k: result['before'][k] for k in ('score', 'coverage_percent', 'prominence_percent')}
                             result['after'] = {k: result['after'][k] for k in ('score', 'coverage_percent', 'prominence_percent')}
-                        elif name == 'click': result = click_element(page, params['selector'])
+                        elif name == 'click':
+                            result = click_element(page, params['selector'])
+                            if args.two_sites and isinstance(result, dict) and result.get('submission') == 'recorded':
+                                confirmed_submissions.add(active_site)
                         elif name == 'switch_job' and args.multi_job:
                             job_id = params['job_id']
                             if job_id not in ('job-a', 'job-b'): raise ValueError('Unknown job; use job-a or job-b.')

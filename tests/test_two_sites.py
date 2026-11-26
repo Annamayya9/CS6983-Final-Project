@@ -1,5 +1,6 @@
 """Integration checks for separate origins and tabs in one conversation."""
 import json
+import io
 from pathlib import Path
 import shutil
 import sys
@@ -23,6 +24,23 @@ def response(*calls, content=''):
 
 
 class TwoSiteTests(unittest.TestCase):
+    def test_structured_turn_validates_before_dispatch(self):
+        for decision, expected in [({'action':'fill','value':'110000'}, 'requires selector'),
+                                   ({'action':'check','selector':'#agree','checked':'false'}, 'requires checked'),
+                                   ({'action':'ask_user','question':'What salary?'}, 'ask_user'),
+                                   ({'action':'report'}, 'report')]:
+            wire = {'message': {'role':'assistant', 'content':json.dumps(decision)}}
+            with self.subTest(decision=decision), patch.object(agent.urllib.request, 'urlopen',
+                    return_value=io.BytesIO(json.dumps(wire).encode())):
+                result = agent.chat([{'role':'system','content':'Test'}], 'test', two_sites=True)
+                if expected.startswith('requires'):
+                    self.assertIn(expected, result['decision_error'])
+                    self.assertNotIn('tool_calls', result['message'])
+                elif expected == 'report':
+                    self.assertEqual(result['message']['content'], '')
+                else:
+                    self.assertEqual(result['message']['tool_calls'][0]['function']['name'], expected)
+
     @classmethod
     def setUpClass(cls):
         cls.temp = tempfile.TemporaryDirectory()
@@ -147,8 +165,8 @@ class TwoSiteTests(unittest.TestCase):
 
     def test_agent_can_upload_tailoring_handle(self):
         responses = iter([
-            response(call('tailor_resume', path='profiles/sample_resume.txt')),
-            response(call('upload', selector='[name="resume"]', file='@tailored/site-a')),
+            response(call('tailor_resume', profile_path='profiles/sample_resume.txt')),
+            response(call('upload', field='[name="resume"]', file_path='@tailored/site-a')),
             response(call('tailor_resume_with_preferences', path='profiles/sample_resume.txt', education_first=True, preserve_wording=True)),
             response(call('upload', selector='[name="resume"]', path='@tailored/site-a')),
             response(content='Tailored résumé attached.'),
@@ -191,6 +209,33 @@ class TwoSiteTests(unittest.TestCase):
         self.assertTrue(agent.is_action_plan_without_tool_calls("I'll handle this step-by-step: upload the resume."))
         self.assertTrue(agent.is_action_plan_without_tool_calls('To proceed, follow these steps: switch to Site B.'))
         self.assertTrue(agent.is_action_plan_without_tool_calls("Here's the corrected approach: fill the required fields."))
+        self.assertTrue(agent.is_action_plan_without_tool_calls("I'll tailor the resume and fill the form."))
+        self.assertTrue(agent.is_action_plan_without_tool_calls("Here's how to proceed with filling out the application form: Form fields to fill; upload the tailored resume."))
+        self.assertTrue(agent.is_action_plan_without_tool_calls("I'll tailor the resume and fill the form. Would you like to submit?"))
+        self.assertFalse(agent.is_action_plan_without_tool_calls("What salary should I use? Once I have it, I'll fill the form."))
+
+    def test_claims_are_checked_against_active_page(self):
+        empty = {'fields': [{'name': 'contact_email', 'type': 'email', 'value': ''},
+                            {'name': 'resume_file', 'type': 'file', 'value': []}]}
+        self.assertTrue(agent.unsupported_completion_claims('The form is now fully populated. Ready?', empty))
+        self.assertTrue(agent.unsupported_completion_claims('All fields are filled except salary.', empty))
+        self.assertTrue(agent.unsupported_completion_claims('The tailored résumé is uploaded.', empty))
+        self.assertTrue(agent.unsupported_completion_claims('Your application has been successfully submitted.', empty))
+        self.assertFalse(agent.unsupported_completion_claims('What is your salary expectation?', empty))
+
+    def test_false_completion_claim_retries_and_does_not_echo_unverified_success(self):
+        responses = iter([response(content='The form is now fully populated. Would you like to continue?'),
+                          response(content='The form is now fully populated. Would you like to continue?')])
+        args = ['agent.py', '--profile', str(self.root / 'profiles/sample.json'), '--headless', '--two-sites',
+                '--site-url', self.urls[0], '--second-site-url', self.urls[1], '--instruction', 'Fill the application.']
+        with patch.object(agent, 'ROOT', self.root), patch.object(agent, 'chat', side_effect=lambda *a, **kw: next(responses)), \
+             patch('builtins.input', return_value='/quit'), patch.object(sys, 'argv', args):
+            agent.main()
+        trace = max((self.root / 'runs').glob('*/trace.jsonl'), key=lambda p:p.stat().st_mtime_ns)
+        events = [json.loads(line) for line in trace.read_text(encoding='utf-8').splitlines()]
+        self.assertEqual(sum(e['type'] == 'execution_retry' for e in events), 1)
+        notice = next(e['data'] for e in events if e['type'] == 'unverified_completion')
+        self.assertIn('could not verify', notice['displayed_response'])
 
     def test_repeated_plan_does_not_cause_unbounded_retry(self):
         responses = iter([response(content='Action plan: fill the application.'),
