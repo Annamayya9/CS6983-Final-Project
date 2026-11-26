@@ -105,3 +105,4 @@ def tailor_blocks(source, requirements, education_first=False, preserve_wording=
                            'moved': ranks[row['source_line']] != rank,
                            'reason': 'Move whole claim blocks with continuations; honor explicit wording and section-order preferences.'})
     return '\n'.join(output) + '\n', provenance
+
